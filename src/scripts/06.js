@@ -30,12 +30,15 @@
         </g>
 
         <g class="hero-culture-layer hero-culture-brazil">
-          <circle class="hero-monument-fill" cx="1360" cy="338" r="29"></circle>
-          <path class="hero-monument-fill" d="M1348 370h24l32 222h-88z"></path>
-          <path class="hero-monument-fill" d="M1198 412h324v24h-324z"></path>
-          <path class="hero-monument-fill" d="M1317 592h86l43 56h-172z"></path>
-          <path class="hero-skyline" d="M1168 740h390M1190 664h68v76M1283 622h76v118M1400 652h61v88M1490 604h39v136"></path>
           <path class="hero-country-ghost" d="M1310 96l91 29 74 71 63 4 52 64-26 69 35 50-43 51-18 91-80 40-42-73-70-35-35-71-48-35 30-74-23-68 48-32z"></path>
+          <g class="hero-copacabana" transform="translate(1060 372)">
+            <path d="M0 44C82-18 164-18 246 44C328 106 410 106 492 44"></path>
+            <path d="M0 92C82 30 164 30 246 92C328 154 410 154 492 92"></path>
+            <path d="M0 140C82 78 164 78 246 140C328 202 410 202 492 140"></path>
+            <path d="M0 188C82 126 164 126 246 188C328 250 410 250 492 188"></path>
+            <path d="M0 236C82 174 164 174 246 236C328 298 410 298 492 236"></path>
+            <path class="hero-copacabana-baseline" d="M0 278H492"></path>
+          </g>
         </g>
 
         <g class="hero-culture-layer hero-culture-music">
