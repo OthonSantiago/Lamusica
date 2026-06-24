@@ -1,0 +1,28 @@
+name: Validate map and lead flow
+
+on:
+  push:
+    branches:
+      - feat/mapa-brasil-leads
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JavaScript
+        run: |
+          cat src/scripts/*.js > /tmp/site.js
+          node --check /tmp/site.js
+      - name: Validate feature files
+        run: |
+          test -f src/scripts/03.js
+          test -f src/styles/06.css
+          grep -q "NOVO LEAD" src/scripts/03.js
+          grep -q "raw.githubusercontent.com" loader.js
