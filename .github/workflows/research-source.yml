@@ -20,10 +20,15 @@ jobs:
           urls=(
             "https://lamusica.com.br/artistas/"
             "https://lamusica.com.br/representantes/"
+            "https://lamusica.com.br/angelo-torres/"
             "https://lamusica.com.br/elias-coutinho/"
             "https://lamusica.com.br/theo-santos/"
-            "https://lamusica.com.br/herson-amorin/"
+            "https://lamusica.com.br/suelen-mondini/"
             "https://lamusica.com.br/samuel-pompeo/"
+            "https://lamusica.com.br/herson-amorin/"
+            "https://lamusica.com.br/fabio-costa/"
+            "https://lamusica.com.br/marcelo-fofao/"
+            "https://lamusica.com.br/ivan-sacerdote/"
           )
           for url in "${urls[@]}"; do
             slug=$(echo "$url" | awk -F/ '{print $(NF-1)}')
@@ -32,14 +37,15 @@ jobs:
               -A "Mozilla/5.0" "$url" -o "source/${slug}.html"
           done
 
-      - name: Extract readable text and media references
+      - name: Extract readable text and download public artist images
         shell: bash
         run: |
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          from urllib.parse import urljoin
-          import json, re
+          from urllib.parse import urljoin, urlparse
+          from urllib.request import Request, urlopen
+          import json, re, time
 
           class Extractor(HTMLParser):
               def __init__(self, base):
@@ -70,21 +76,41 @@ jobs:
                       if cleaned:
                           self.text.append(cleaned + ' ')
 
+          assets = Path('source/assets')
+          assets.mkdir(parents=True, exist_ok=True)
+
           for path in Path('source').glob('*.html'):
               base = f"https://lamusica.com.br/{path.stem}/"
+              raw = path.read_text(encoding='utf-8', errors='ignore')
               parser = Extractor(base)
-              parser.feed(path.read_text(encoding='utf-8', errors='ignore'))
+              parser.feed(raw)
+              inline_urls = re.findall(r'https?[^\"\' )]+(?:png|jpe?g|webp)', raw, re.I)
+              images = sorted(set(parser.images + [u.replace('\\/','/') for u in inline_urls]))
               text = ''.join(parser.text)
               text = re.sub(r'\n\s*\n+', '\n', text)
               Path(f'source/{path.stem}.txt').write_text(text, encoding='utf-8')
               Path(f'source/{path.stem}.json').write_text(json.dumps({
                   'links': sorted(set(parser.links)),
-                  'images': sorted(set(parser.images)),
+                  'images': images,
               }, ensure_ascii=False, indent=2), encoding='utf-8')
+
+              candidates = [u for u in images if 'uploads/' in u and 'logo' not in u.lower() and 'cropped-' not in u.lower()]
+              for index, url in enumerate(candidates, 1):
+                  suffix = Path(urlparse(url).path).suffix.lower() or '.jpg'
+                  target = assets / f'{path.stem}-{index}{suffix}'
+                  try:
+                      req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                      with urlopen(req, timeout=60) as response:
+                          target.write_bytes(response.read())
+                      print(f'Downloaded {target} from {url}')
+                  except Exception as exc:
+                      print(f'Could not download {url}: {exc}')
+                  time.sleep(.2)
+
               print(f"===== {path.stem.upper()} =====")
               print(text[:25000])
               print("===== MEDIA =====")
-              print(json.dumps({'images': sorted(set(parser.images)), 'links': sorted(set(parser.links))}, ensure_ascii=False)[:20000])
+              print(json.dumps({'images': images, 'links': sorted(set(parser.links))}, ensure_ascii=False)[:20000])
           PY
 
       - name: Upload research artifact
