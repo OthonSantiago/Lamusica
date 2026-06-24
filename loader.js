@@ -34,11 +34,11 @@
     const [styleHash, scriptHash] = await Promise.all([sha256(safeCss), sha256(safeScript)]);
     const policy = [
       "default-src 'self'",
-      "img-src 'self' data: https://lamusica.com.br https://raw.githubusercontent.com",
+      "img-src 'self' data: https://lamusica.com.br",
       `style-src 'self' 'sha256-${styleHash}'`,
       `script-src 'self' 'sha256-${scriptHash}'`,
       "font-src 'self'",
-      "connect-src 'none'",
+      "connect-src 'self'",
       "object-src 'none'",
       "base-uri 'none'",
       "form-action 'self'",

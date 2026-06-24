@@ -5,6 +5,7 @@ on:
     branches:
       - feat/mapa-brasil-leads
       - fix-mapa-brasil-local-v2
+      - fix-mapa-estados-reais
   pull_request:
     branches:
       - main
@@ -21,11 +22,14 @@ jobs:
         run: |
           cat src/scripts/00.js src/scripts/01.js src/scripts/02.js src/scripts/04.js > /tmp/site.js
           node --check /tmp/site.js
-      - name: Validate resilient map
+      - name: Validate real state map
         run: |
+          test -f assets/maps/brazil-states.svg
           test -f src/scripts/04.js
           test -f src/styles/07.css
+          test "$(grep -o 'data-state="[A-Z][A-Z]"' assets/maps/brazil-states.svg | wc -l)" -eq 27
+          grep -q "path\[data-state" src/scripts/04.js
+          grep -q "assets/maps/brazil-states.svg" src/scripts/04.js
           grep -q "NOVO LEAD" src/scripts/04.js
-          grep -q "scriptParts = \['00', '01', '02', '04'\]" loader.js
-          grep -q "img-src 'self' data: https://lamusica.com.br https://raw.githubusercontent.com" loader.js
-          grep -q "connect-src 'none'" loader.js
+          grep -q "connect-src 'self'" loader.js
+          ! grep -q "raw.githubusercontent.com" loader.js
