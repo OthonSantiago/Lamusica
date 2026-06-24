@@ -1,9 +1,9 @@
 name: Research public source content
 
 on:
-  push:
+  pull_request:
     branches:
-      - research/source-content
+      - main
 
 permissions:
   contents: read
