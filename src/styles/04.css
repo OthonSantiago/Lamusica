@@ -1,0 +1,55 @@
+/* Business model and audience journeys */
+.business-pathways { position:relative; z-index:3; margin-top:-18px; padding:0 0 84px; background:var(--paper); }
+.pathway-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.pathway-card { min-height:300px; display:flex; gap:20px; padding:30px 26px; border:1px solid var(--line); border-radius:22px; background:#fff; box-shadow:0 16px 45px rgba(7,27,45,.055); transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease; }
+.pathway-card:hover { transform:translateY(-5px); box-shadow:var(--shadow); border-color:rgba(33,184,230,.35); }
+.pathway-number { flex:0 0 auto; color:#168db2; font-family:Georgia,serif; font-size:1.05rem; }
+.pathway-card small { color:#168db2; font-size:.67rem; font-weight:850; letter-spacing:.11em; text-transform:uppercase; }
+.pathway-card h2 { margin:12px 0; font-family:Georgia,serif; font-size:1.65rem; font-weight:400; line-height:1.08; letter-spacing:-.025em; }
+.pathway-card p { color:var(--muted); font-size:.88rem; }
+.pathway-card a { display:inline-flex; gap:8px; margin-top:8px; font-size:.82rem; font-weight:850; }
+
+/* Artist network */
+.artists-section { background:var(--navy); color:#fff; overflow:hidden; position:relative; }
+.artists-section::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 88% 10%,rgba(33,184,230,.16),transparent 27%),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size:auto,54px 54px,54px 54px; }
+.artists-section .container { position:relative; z-index:2; }
+.artists-section .eyebrow.dark { color:var(--cyan); }
+.artists-section .section-heading p { color:rgba(255,255,255,.62); }
+.artists-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.artist-card { overflow:hidden; border:1px solid rgba(255,255,255,.12); border-radius:22px; background:rgba(255,255,255,.055); transition:transform .25s ease,background .25s ease,box-shadow .25s ease; }
+.artist-card:hover { transform:translateY(-6px); background:rgba(255,255,255,.09); box-shadow:0 28px 70px rgba(0,0,0,.22); }
+.artist-photo { position:relative; aspect-ratio:1/1; overflow:hidden; background:#102f45; }
+.artist-photo::after { content:""; position:absolute; inset:auto 0 0; height:44%; background:linear-gradient(transparent,rgba(7,27,45,.82)); }
+.artist-photo img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.artist-card:hover .artist-photo img { transform:scale(1.035); }
+.artist-photo > span { position:absolute; z-index:2; left:18px; right:18px; bottom:16px; color:#fff; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; }
+.artist-card-copy { padding:22px 22px 24px; }
+.artist-card-copy small { color:var(--cyan); font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; font-weight:800; }
+.artist-card-copy h3 { margin:6px 0 17px; font-family:Georgia,serif; font-size:1.65rem; font-weight:400; line-height:1.05; }
+.artist-open { display:flex; align-items:center; justify-content:space-between; width:100%; padding:0; border:0; background:transparent; color:rgba(255,255,255,.72); font-size:.8rem; font-weight:800; cursor:pointer; }
+.artist-open:hover { color:#fff; }
+
+/* Representatives and regional coverage */
+.representatives-section { background:var(--cream); }
+.representatives-layout { display:grid; grid-template-columns:1.02fr .98fr; gap:30px; align-items:stretch; }
+.brazil-map { position:relative; min-height:610px; border-radius:28px; overflow:hidden; background:linear-gradient(145deg,#09243a,#0e3d5c); box-shadow:var(--shadow); }
+.brazil-map::before { content:""; position:absolute; width:470px; height:470px; left:-220px; top:-210px; border:1px solid rgba(255,255,255,.08); border-radius:50%; box-shadow:0 0 0 70px rgba(255,255,255,.025),0 0 0 140px rgba(255,255,255,.018); }
+.brazil-map > svg { position:absolute; inset:48px 42px 80px; width:calc(100% - 84px); height:calc(100% - 128px); }
+.map-shape { fill:rgba(113,216,244,.11); stroke:rgba(113,216,244,.55); stroke-width:2; filter:drop-shadow(0 20px 35px rgba(0,0,0,.24)); }
+.map-river { fill:none; stroke:rgba(113,216,244,.16); stroke-width:2; stroke-dasharray:6 7; }
+.map-markers { position:absolute; inset:48px 42px 80px; }
+.state-marker { position:absolute; left:var(--x); top:var(--y); translate:-50% -50%; min-width:34px; height:34px; padding:0 7px; display:grid; place-items:center; border:2px solid rgba(255,255,255,.8); border-radius:999px; background:var(--blue); color:var(--navy); box-shadow:0 8px 20px rgba(0,0,0,.25); font-size:.62rem; font-weight:900; cursor:pointer; transition:transform .2s ease,background .2s ease; }
+.state-marker:hover,.state-marker.active { transform:scale(1.2); background:#fff; z-index:4; }
+.map-legend { position:absolute; left:30px; right:30px; bottom:24px; display:flex; align-items:center; justify-content:space-between; color:rgba(255,255,255,.58); font-size:.72rem; }
+.map-legend span { display:flex; align-items:center; gap:8px; }
+.map-legend i { width:10px; height:10px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 3px rgba(33,184,230,.18); }
+.representative-panel { min-height:610px; padding:35px; border:1px solid var(--line); border-radius:28px; background:#fff; box-shadow:0 20px 60px rgba(7,27,45,.08); display:flex; flex-direction:column; }
+.representative-selector { display:grid; gap:7px; margin-bottom:22px; }
+.representative-selector label { font-size:.7rem; font-weight:850; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+.representative-selector select { width:100%; padding:13px 15px; border:1px solid #d7e0e4; border-radius:12px; background:#fbfcfc; color:var(--ink); }
+.representative-card { padding:28px; border-radius:20px; background:var(--navy); color:#fff; box-shadow:0 16px 40px rgba(7,27,45,.18); }
+.rep-state { display:block; margin-bottom:18px; color:var(--cyan); font-size:.72rem; text-transform:uppercase; letter-spacing:.13em; font-weight:850; }
+.representative-card > small { color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.11em; font-size:.65rem; }
+.representative-card h3 { margin:7px 0 18px; font-family:Georgia,serif; font-size:2.35rem; line-height:1; font-weight:400; }
+.rep-contacts { display:grid; gap:5px; margin-bottom:24px; }
+.rep-contacts a { color:rgba(255,255,255,.72); font-size:.86rem; overflow-wrap:anywhere; }
