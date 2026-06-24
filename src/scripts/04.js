@@ -5,20 +5,43 @@
   if (!section) return;
 
   const states = {
-    AC:{name:'Acre',x:16,y:50},AL:{name:'Alagoas',x:83,y:52},AP:{name:'Amapá',x:54,y:12},AM:{name:'Amazonas',x:32,y:31},BA:{name:'Bahia',x:72,y:57},CE:{name:'Ceará',x:79,y:37},DF:{name:'Distrito Federal',x:59,y:60},ES:{name:'Espírito Santo',x:79,y:72},GO:{name:'Goiás',x:57,y:61},MA:{name:'Maranhão',x:66,y:35},MT:{name:'Mato Grosso',x:43,y:53},MS:{name:'Mato Grosso do Sul',x:46,y:69},MG:{name:'Minas Gerais',x:68,y:69},PA:{name:'Pará',x:51,y:30},PB:{name:'Paraíba',x:87,y:44},PR:{name:'Paraná',x:58,y:84},PE:{name:'Pernambuco',x:82,y:47},PI:{name:'Piauí',x:69,y:44},RJ:{name:'Rio de Janeiro',x:73,y:78},RN:{name:'Rio Grande do Norte',x:88,y:40},RS:{name:'Rio Grande do Sul',x:54,y:95},RO:{name:'Rondônia',x:29,y:52},RR:{name:'Roraima',x:34,y:13},SC:{name:'Santa Catarina',x:59,y:90},SP:{name:'São Paulo',x:63,y:77},SE:{name:'Sergipe',x:80,y:56},TO:{name:'Tocantins',x:56,y:47}
+    AC:'Acre', AL:'Alagoas', AP:'Amapá', AM:'Amazonas', BA:'Bahia', CE:'Ceará',
+    DF:'Distrito Federal', ES:'Espírito Santo', GO:'Goiás', MA:'Maranhão',
+    MT:'Mato Grosso', MS:'Mato Grosso do Sul', MG:'Minas Gerais', PA:'Pará',
+    PB:'Paraíba', PR:'Paraná', PE:'Pernambuco', PI:'Piauí', RJ:'Rio de Janeiro',
+    RN:'Rio Grande do Norte', RS:'Rio Grande do Sul', RO:'Rondônia', RR:'Roraima',
+    SC:'Santa Catarina', SP:'São Paulo', SE:'Sergipe', TO:'Tocantins'
   };
 
   const representatives = {
-    AL:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},CE:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},PB:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},PE:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},RN:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},BA:{name:'Gilvan Marques',coverage:'Bahia e Sergipe'},SE:{name:'Gilvan Marques',coverage:'Bahia e Sergipe'},DF:{name:'Antonio Lopes',coverage:'Distrito Federal, Goiás e Tocantins'},GO:{name:'Antonio Lopes',coverage:'Distrito Federal, Goiás e Tocantins'},TO:{name:'Antonio Lopes',coverage:'Distrito Federal, Goiás e Tocantins'},MA:{name:'Marivalda Aquino',coverage:'Maranhão, Pará e Piauí'},PA:{name:'Marivalda Aquino',coverage:'Maranhão, Pará e Piauí'},PI:{name:'Marivalda Aquino',coverage:'Maranhão, Pará e Piauí'},MT:{name:'Antonio Espinosa',coverage:'Mato Grosso e Mato Grosso do Sul'},MS:{name:'Antonio Espinosa',coverage:'Mato Grosso e Mato Grosso do Sul'},PR:{name:'João Carlos',coverage:'Paraná'},RJ:{name:'Chicão Mendes',coverage:'Rio de Janeiro'},SP:{name:'Marcelo Silva',coverage:'São Paulo'}
+    AL:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},
+    CE:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},
+    PB:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},
+    PE:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},
+    RN:{name:'Aline Carvalho',coverage:'Alagoas, Ceará, Paraíba, Pernambuco e Rio Grande do Norte'},
+    BA:{name:'Gilvan Marques',coverage:'Bahia e Sergipe'},
+    SE:{name:'Gilvan Marques',coverage:'Bahia e Sergipe'},
+    DF:{name:'Antonio Lopes',coverage:'Distrito Federal, Goiás e Tocantins'},
+    GO:{name:'Antonio Lopes',coverage:'Distrito Federal, Goiás e Tocantins'},
+    TO:{name:'Antonio Lopes',coverage:'Distrito Federal, Goiás e Tocantins'},
+    MA:{name:'Marivalda Aquino',coverage:'Maranhão, Pará e Piauí'},
+    PA:{name:'Marivalda Aquino',coverage:'Maranhão, Pará e Piauí'},
+    PI:{name:'Marivalda Aquino',coverage:'Maranhão, Pará e Piauí'},
+    MT:{name:'Antonio Espinosa',coverage:'Mato Grosso e Mato Grosso do Sul'},
+    MS:{name:'Antonio Espinosa',coverage:'Mato Grosso e Mato Grosso do Sul'},
+    PR:{name:'João Carlos',coverage:'Paraná'},
+    RJ:{name:'Chicão Mendes',coverage:'Rio de Janeiro'},
+    SP:{name:'Marcelo Silva',coverage:'São Paulo'}
   };
 
-  const national = {name:'Equipe La Música',coverage:'Atendimento nacional e encaminhamento para o canal disponível'};
+  const national = {
+    name:'Equipe La Música',
+    coverage:'Atendimento nacional e encaminhamento para o canal disponível'
+  };
+
   const options = Object.entries(states)
-    .sort((a,b) => a[1].name.localeCompare(b[1].name,'pt-BR'))
-    .map(([code,state]) => `<option value="${code}"${code === 'SP' ? ' selected' : ''}>${state.name}</option>`)
-    .join('');
-  const markers = Object.entries(states)
-    .map(([code,state]) => `<button class="map-state-button" data-map-state="${code}" style="--x:${state.x}%;--y:${state.y}%" type="button" aria-label="Selecionar ${state.name}">${code}</button>`)
+    .sort((a,b) => a[1].localeCompare(b[1], 'pt-BR'))
+    .map(([code,name]) => `<option value="${code}"${code === 'SP' ? ' selected' : ''}>${name}</option>`)
     .join('');
 
   section.classList.add('lead-routing-enabled');
@@ -26,24 +49,20 @@
     <div class="container">
       <div class="section-heading reveal visible">
         <div><span class="eyebrow dark">Cobertura comercial</span><h2>Escolha seu estado e solicite atendimento.</h2></div>
-        <p>A La Música recebe o interesse, qualifica o lead e encaminha a oportunidade ao representante responsável pela região.</p>
+        <p>Clique diretamente no contorno do estado. A La Música recebe o interesse, qualifica o lead e encaminha a oportunidade ao responsável regional.</p>
       </div>
       <div class="lead-routing-layout">
         <div class="lead-routing-map reveal visible">
-          <div class="lead-map-toolbar"><button class="lead-map-reset" data-map-reset type="button" disabled>Ver Brasil inteiro</button><span data-map-caption>Selecione um estado no mapa</span></div>
-          <div class="lead-map-stage">
-            <div class="lead-map-viewport" data-map-viewport>
-              <div class="lead-map-canvas" data-map-canvas>
-                <img class="lead-map-image" data-map-image alt="Mapa do Brasil dividido por estados" src="https://raw.githubusercontent.com/react-map/react-map/3ed7f9b956e9031fd284ad654164b5abf6c0cdda/assets/done/brazil.svg"/>
-                <svg class="lead-map-fallback" aria-label="Silhueta alternativa do Brasil" role="img" viewBox="0 0 480 520"><path fill="rgba(113,216,244,.18)" stroke="rgba(255,255,255,.65)" stroke-width="3" d="M178 24l68 16 48 44 63 7 44 57-20 56 26 42-35 39-15 68-57 33-26 72-48 38-28-73-52-34-36-63-43-23 29-65-18-56 49-29 16-69 63-14z"/></svg>
-                ${markers}
-              </div>
-              <div class="lead-map-selected" data-map-selected></div>
-            </div>
+          <div class="lead-map-toolbar">
+            <button class="lead-map-reset" data-map-reset type="button" disabled>Ver Brasil inteiro</button>
+            <span data-map-caption>Selecione um estado no mapa</span>
+          </div>
+          <div class="lead-map-stage" data-map-stage>
+            <div class="lead-map-loading">Carregando mapa do Brasil…</div>
           </div>
           <div class="lead-map-legend"><span><i></i> Estado com representante regional</span><small>Todos os estados geram atendimento</small></div>
-          <p class="lead-map-help">Clique em um estado para aproximar o mapa e abrir a ficha regional.</p>
-          <p class="map-source-note">Mapa vetorial: <a href="https://github.com/react-map/react-map" rel="noopener noreferrer" target="_blank">react-map</a>, licença MIT.</p>
+          <p class="lead-map-help">O próprio desenho de cada estado é clicável. Também é possível selecionar pela lista ao lado.</p>
+          <p class="map-source-note">Mapa vetorial versionado no projeto. Geometria derivada de <a href="https://github.com/react-map/react-map" rel="noopener noreferrer" target="_blank">react-map</a>, licença MIT.</p>
         </div>
         <div class="lead-capture-panel reveal visible">
           <div class="lead-state-selector"><label for="lead-state-select">Estado de interesse</label><select id="lead-state-select" data-lead-state-select>${options}</select></div>
@@ -74,11 +93,8 @@
       </div>
     </div>`;
 
-  const viewport = section.querySelector('[data-map-viewport]');
-  const canvas = section.querySelector('[data-map-canvas]');
-  const image = section.querySelector('[data-map-image]');
+  const mapStage = section.querySelector('[data-map-stage]');
   const caption = section.querySelector('[data-map-caption]');
-  const selectedLabel = section.querySelector('[data-map-selected]');
   const resetButton = section.querySelector('[data-map-reset]');
   const select = section.querySelector('[data-lead-state-select]');
   const repState = section.querySelector('[data-lead-rep-state]');
@@ -87,43 +103,127 @@
   const leadState = section.querySelector('[data-lead-state]');
   const leadRepresentative = section.querySelector('[data-lead-representative]');
 
-  image.addEventListener('error', () => viewport.classList.add('map-fallback-active'), {once:true});
+  let mapSvg = null;
+  let fullViewBox = '0 0 620 640';
+  let selectedCode = 'SP';
 
   const representativeFor = (code) => representatives[code] || national;
+
+  const updateRegionalCard = (code) => {
+    const stateName = states[code];
+    const representative = representativeFor(code);
+    if (!stateName) return;
+
+    selectedCode = code;
+    select.value = code;
+    repState.textContent = `${stateName} · ${code}`;
+    repName.textContent = representative.name;
+    repCoverage.textContent = representatives[code]
+      ? `Cobertura: ${representative.coverage}.`
+      : `${representative.coverage}.`;
+    leadState.value = code;
+    leadRepresentative.value = representative.name;
+    caption.textContent = `${stateName} · ${representatives[code] ? 'representante regional' : 'atendimento nacional'}`;
+  };
+
+  const highlightState = (code) => {
+    if (!mapSvg) return;
+    mapSvg.querySelectorAll('path[data-state]').forEach((path) => {
+      path.classList.toggle('selected', path.dataset.state === code);
+    });
+  };
+
+  const stateViewBox = (path) => {
+    const box = path.getBBox();
+    const centerX = box.x + box.width / 2;
+    const centerY = box.y + box.height / 2;
+    const margin = Math.max(14, Math.max(box.width, box.height) * 0.38);
+    const width = Math.max(88, box.width + margin * 2);
+    const height = Math.max(88, box.height + margin * 2);
+    return `${centerX - width / 2} ${centerY - height / 2} ${width} ${height}`;
+  };
+
+  const zoomToState = (code) => {
+    if (!mapSvg) return;
+    const path = mapSvg.querySelector(`path[data-state="${code}"]`);
+    if (!path) return;
+
+    highlightState(code);
+    mapSvg.setAttribute('viewBox', stateViewBox(path));
+    mapStage.classList.add('is-zoomed');
+    resetButton.disabled = false;
+  };
+
   const resetMap = () => {
-    viewport.classList.remove('is-zoomed');
-    canvas.style.transformOrigin = '50% 50%';
-    canvas.style.transform = 'scale(1)';
+    if (!mapSvg) return;
+    mapSvg.setAttribute('viewBox', fullViewBox);
+    mapStage.classList.remove('is-zoomed');
     resetButton.disabled = true;
-    section.querySelectorAll('[data-map-state]').forEach((button) => button.classList.remove('selected'));
-    selectedLabel.textContent = '';
+    highlightState(selectedCode);
   };
 
   const selectState = (code, zoom = true) => {
-    const state = states[code];
-    const rep = representativeFor(code);
-    if (!state) return;
-    select.value = code;
-    repState.textContent = `${state.name} · ${code}`;
-    repName.textContent = rep.name;
-    repCoverage.textContent = representatives[code] ? `Cobertura: ${rep.coverage}.` : `${rep.coverage}.`;
-    leadState.value = code;
-    leadRepresentative.value = rep.name;
-    caption.textContent = `${state.name} · ${representatives[code] ? 'representante regional' : 'atendimento nacional'}`;
-    selectedLabel.textContent = `${state.name} · ${code}`;
-    section.querySelectorAll('[data-map-state]').forEach((button) => button.classList.toggle('selected', button.dataset.mapState === code));
-    if (zoom) {
-      canvas.style.transformOrigin = `${state.x}% ${state.y}%`;
-      canvas.style.transform = 'scale(2.35)';
-      viewport.classList.add('is-zoomed');
-      resetButton.disabled = false;
+    updateRegionalCard(code);
+    highlightState(code);
+    if (zoom) zoomToState(code);
+  };
+
+  const activatePath = (path) => {
+    const code = path.dataset.state;
+    path.setAttribute('tabindex', '0');
+    path.setAttribute('role', 'button');
+    path.setAttribute('aria-label', `Selecionar ${states[code] || code}`);
+    path.classList.toggle('has-representative', Boolean(representatives[code]));
+
+    path.addEventListener('click', () => selectState(code));
+    path.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        selectState(code);
+      }
+    });
+  };
+
+  const loadMap = async () => {
+    try {
+      const response = await fetch('assets/maps/brazil-states.svg', {
+        cache:'force-cache',
+        credentials:'same-origin'
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const markup = await response.text();
+      const parsed = new DOMParser().parseFromString(markup, 'image/svg+xml');
+      if (parsed.querySelector('parsererror')) throw new Error('SVG inválido');
+
+      mapSvg = document.importNode(parsed.documentElement, true);
+      mapSvg.classList.add('lead-map-svg');
+      mapSvg.removeAttribute('width');
+      mapSvg.removeAttribute('height');
+      mapSvg.setAttribute('aria-label', 'Mapa interativo do Brasil por estados');
+      mapSvg.setAttribute('role', 'img');
+      fullViewBox = mapSvg.getAttribute('viewBox') || fullViewBox;
+
+      const paths = mapSvg.querySelectorAll('path[data-state]');
+      if (paths.length !== 27) throw new Error(`Mapa incompleto: ${paths.length} estados`);
+      paths.forEach(activatePath);
+
+      mapStage.replaceChildren(mapSvg);
+      requestAnimationFrame(() => selectState(selectedCode, false));
+    } catch (error) {
+      console.error(error);
+      mapStage.innerHTML = `
+        <div class="lead-map-error">
+          <svg aria-label="Silhueta do Brasil" role="img" viewBox="0 0 480 520"><path d="M178 24l68 16 48 44 63 7 44 57-20 56 26 42-35 39-15 68-57 33-26 72-48 38-28-73-52-34-36-63-43-23 29-65-18-56 49-29 16-69 63-14z"/></svg>
+          <p>Não foi possível exibir o mapa interativo. Selecione o estado pela lista ao lado.</p>
+        </div>`;
     }
   };
 
-  section.querySelectorAll('[data-map-state]').forEach((button) => button.addEventListener('click', () => selectState(button.dataset.mapState)));
   select.addEventListener('change', () => selectState(select.value));
   resetButton.addEventListener('click', resetMap);
-  selectState('SP', false);
+  updateRegionalCard('SP');
+  loadMap();
 
   const form = section.querySelector('[data-regional-lead-form]');
   const confirmation = section.querySelector('[data-lead-confirmation]');
@@ -133,15 +233,31 @@
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
+
     const data = new FormData(form);
     const code = String(data.get('estado') || select.value || 'SP');
-    const state = states[code]?.name || code;
+    const stateName = states[code] || code;
     const representative = String(data.get('representante') || representativeFor(code).name);
     const leadId = `LM-${new Date().toISOString().slice(2,10).replaceAll('-','')}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
-    const message = ['NOVO LEAD — SITE LA MÚSICA',`ID: ${leadId}`,`Estado: ${state} (${code})`,`Responsável sugerido: ${representative}`,'',`Nome: ${String(data.get('nome') || '').trim()}`,`WhatsApp: ${String(data.get('whatsapp') || '').trim()}`,`Cidade: ${String(data.get('cidade') || '').trim()}`,`Perfil: ${String(data.get('perfil') || '').trim()}`,`Instrumento/categoria: ${String(data.get('instrumento') || '').trim()}`,`Interesse: ${String(data.get('interesse') || '').trim()}`,`Mensagem: ${String(data.get('mensagem') || '').trim()}`,'Consentimento para atendimento e encaminhamento regional: sim'].join('\n');
+    const message = [
+      'NOVO LEAD — SITE LA MÚSICA',
+      `ID: ${leadId}`,
+      `Estado: ${stateName} (${code})`,
+      `Responsável sugerido: ${representative}`,
+      '',
+      `Nome: ${String(data.get('nome') || '').trim()}`,
+      `WhatsApp: ${String(data.get('whatsapp') || '').trim()}`,
+      `Cidade: ${String(data.get('cidade') || '').trim()}`,
+      `Perfil: ${String(data.get('perfil') || '').trim()}`,
+      `Instrumento/categoria: ${String(data.get('instrumento') || '').trim()}`,
+      `Interesse: ${String(data.get('interesse') || '').trim()}`,
+      `Mensagem: ${String(data.get('mensagem') || '').trim()}`,
+      'Consentimento para atendimento e encaminhamento regional: sim'
+    ].join('\n');
+
     const url = `https://wa.me/5519999251030?text=${encodeURIComponent(message)}`;
     confirmation.hidden = false;
-    confirmationText.textContent = `Lead ${leadId} preparado para ${state}. Envie a mensagem no WhatsApp para concluir.`;
+    confirmationText.textContent = `Lead ${leadId} preparado para ${stateName}. Envie a mensagem no WhatsApp para concluir.`;
     retry.href = url;
     window.open(url, '_blank', 'noopener,noreferrer');
   });
