@@ -1,0 +1,27 @@
+name: Validate story background
+
+on:
+  push:
+    branches:
+      - story-bg-fix
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-story:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate story module
+        run: |
+          test -f src/scripts/05.js
+          test -f src/styles/10.css
+          node --check src/scripts/05.js
+          grep -q "story-origin-runtime" src/scripts/05.js
+          grep -q "runtime-story-pan" src/styles/10.css
+          grep -q "src/scripts/05.js" <(printf '%s' "$(grep -o "src/scripts/\${part}.js" loader.js || true)") || grep -q "'04', '05'" loader.js
+          grep -q "'09', '10'" loader.js
