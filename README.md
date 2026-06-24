@@ -1,6 +1,8 @@
-# La Música — redesign visual
+# La Música — entrega pública
 
 Site institucional responsivo da La Música, estruturado para apresentar a empresa como importadora e distribuidora B2B de marcas especializadas em instrumentos de sopro.
+
+Este repositório é a **versão pública de entrega**, utilizada para dar visibilidade ao cliente e publicar o site no GitHub Pages. O desenvolvimento completo, a documentação técnica e os materiais internos são mantidos separadamente no repositório privado `Lamusica-source`.
 
 ## Site publicado
 
