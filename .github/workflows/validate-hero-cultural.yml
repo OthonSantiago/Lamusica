@@ -1,0 +1,30 @@
+name: Validate cultural hero
+
+on:
+  push:
+    branches:
+      - hero-culture-bg
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-hero:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate hero module
+        run: |
+          test -f src/scripts/06.js
+          test -f src/styles/11.css
+          node --check src/scripts/06.js
+          grep -q "hero-cultural-bg" src/scripts/06.js
+          grep -q "hero-culture-argentina" src/scripts/06.js
+          grep -q "hero-culture-brazil" src/scripts/06.js
+          grep -q "hero-bandoneon" src/scripts/06.js
+          grep -q "hero-sax-line" src/scripts/06.js
+          grep -q "'10', '11'" loader.js
+          grep -q "'05', '06'" loader.js
