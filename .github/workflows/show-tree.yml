@@ -16,5 +16,12 @@ jobs:
         with:
           ref: feat/artistas-representantes-b2b
           fetch-depth: 1
-      - name: Show tree SHA
-        run: git rev-parse 'HEAD^{tree}'
+          show-progress: false
+      - name: Save tree SHA
+        run: git rev-parse 'HEAD^{tree}' > tree-sha.txt
+      - name: Upload tree SHA
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree-sha
+          path: tree-sha.txt
+          retention-days: 1
