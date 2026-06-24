@@ -1,0 +1,20 @@
+name: Show Git tree
+
+on:
+  push:
+    branches:
+      - feat/artistas-representantes-b2b
+
+permissions:
+  contents: read
+
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: feat/artistas-representantes-b2b
+          fetch-depth: 1
+      - name: Show tree SHA
+        run: git rev-parse 'HEAD^{tree}'
