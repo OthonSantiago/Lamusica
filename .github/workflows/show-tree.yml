@@ -1,9 +1,9 @@
 name: Show Git tree
 
 on:
-  push:
+  pull_request:
     branches:
-      - feat/artistas-representantes-b2b
+      - main
 
 permissions:
   contents: read
