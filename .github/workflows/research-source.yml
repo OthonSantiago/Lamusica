@@ -113,6 +113,14 @@ jobs:
               print(json.dumps({'images': images, 'links': sorted(set(parser.links))}, ensure_ascii=False)[:20000])
           PY
 
+      - name: Download featured artist image used on the homepage
+        shell: bash
+        run: |
+          curl --fail --location --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120 \
+            -A "Mozilla/5.0" \
+            "https://lamusica.com.br/wp-content/uploads/2023/09/suelenmondini.png" \
+            -o "source/assets/suelen-mondini-1.png"
+
       - name: Upload research artifact
         uses: actions/upload-artifact@v4
         with:
