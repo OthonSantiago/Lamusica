@@ -1,0 +1,61 @@
+/* Interactive Brazil map and centrally routed commercial leads */
+.representatives-section.lead-routing-enabled { background: var(--cream); }
+.lead-routing-layout { display: grid; grid-template-columns: 1.05fr .95fr; gap: 28px; align-items: stretch; }
+.lead-routing-map,
+.lead-capture-panel { min-height: 680px; border-radius: 28px; }
+.lead-routing-map { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 24px; background: linear-gradient(145deg,#09243a,#0e3d5c); box-shadow: var(--shadow); }
+.lead-routing-map::before { content:""; position:absolute; width:470px; height:470px; left:-230px; top:-220px; border:1px solid rgba(255,255,255,.08); border-radius:50%; box-shadow:0 0 0 70px rgba(255,255,255,.025),0 0 0 140px rgba(255,255,255,.018); pointer-events:none; }
+.lead-map-toolbar { position: relative; z-index: 3; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#fff; }
+.lead-map-toolbar span { color:rgba(255,255,255,.66); font-size:.78rem; text-align:right; }
+.lead-map-reset { border:1px solid rgba(255,255,255,.22); border-radius:999px; background:rgba(255,255,255,.08); color:#fff; padding:9px 14px; font-size:.72rem; font-weight:800; cursor:pointer; }
+.lead-map-reset:hover { background:rgba(255,255,255,.16); }
+.lead-map-stage { position:relative; z-index:2; flex:1; min-height:530px; display:grid; place-items:center; overflow:hidden; }
+.lead-map-stage svg { width:100%; height:100%; max-height:560px; transition:filter .2s ease; }
+.lead-map-stage path[id^="BR-"] { fill:rgba(113,216,244,.13); stroke:rgba(255,255,255,.7); stroke-width:1.15; vector-effect:non-scaling-stroke; cursor:pointer; transition:fill .2s ease,opacity .2s ease,filter .2s ease; }
+.lead-map-stage path[id^="BR-"].has-representative { fill:rgba(33,184,230,.5); }
+.lead-map-stage path[id^="BR-"]:hover,
+.lead-map-stage path[id^="BR-"]:focus,
+.lead-map-stage path[id^="BR-"].selected { fill:#fff; filter:drop-shadow(0 8px 12px rgba(0,0,0,.28)); outline:none; }
+.lead-map-stage.is-zoomed path[id^="BR-"]:not(.selected) { opacity:.08; }
+.lead-map-stage text { fill:rgba(255,255,255,.84); pointer-events:none; font-weight:800; }
+.lead-map-loading { color:rgba(255,255,255,.62); font-size:.82rem; }
+.lead-map-legend { position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between; gap:14px; color:rgba(255,255,255,.58); font-size:.72rem; }
+.lead-map-legend span { display:flex; align-items:center; gap:8px; }
+.lead-map-legend i { width:10px; height:10px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 3px rgba(33,184,230,.18); }
+.lead-map-help { position:relative; z-index:3; margin:9px 0 0; color:rgba(255,255,255,.5); font-size:.72rem; }
+.map-source-note { position:relative; z-index:3; margin-top:8px; color:rgba(255,255,255,.34); font-size:.62rem; }
+.map-source-note a { color:rgba(113,216,244,.7); }
+.lead-capture-panel { padding:28px; border:1px solid var(--line); background:#fff; box-shadow:0 20px 60px rgba(7,27,45,.08); }
+.lead-state-selector { display:grid; gap:7px; margin-bottom:18px; }
+.lead-state-selector label { color:var(--muted); font-size:.68rem; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
+.lead-state-selector select { width:100%; padding:13px 15px; border:1px solid #d7e0e4; border-radius:12px; background:#fbfcfc; color:var(--ink); }
+.lead-regional-card { padding:23px; border-radius:20px; background:var(--navy); color:#fff; }
+.lead-regional-card .rep-state { display:block; margin-bottom:16px; color:var(--cyan); font-size:.7rem; font-weight:850; letter-spacing:.13em; text-transform:uppercase; }
+.lead-regional-card > small { color:rgba(255,255,255,.48); font-size:.64rem; letter-spacing:.11em; text-transform:uppercase; }
+.lead-regional-card h3 { margin:7px 0 8px; font-family:Georgia,serif; font-size:2rem; font-weight:400; line-height:1; }
+.lead-regional-card p { margin:0; color:rgba(255,255,255,.66); font-size:.82rem; }
+.lead-routing-flow { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:18px 0 12px; color:var(--cyan); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; }
+.lead-routing-flow span { color:rgba(255,255,255,.34); }
+.lead-routing-privacy { padding-top:12px; border-top:1px solid rgba(255,255,255,.12); }
+.regional-lead-form { display:grid; gap:13px; margin-top:22px; }
+.lead-form-heading { display:grid; }
+.lead-form-heading span { color:#168db2; font-size:.65rem; font-weight:850; letter-spacing:.11em; text-transform:uppercase; }
+.lead-form-heading strong { font-family:Georgia,serif; font-size:1.45rem; font-weight:400; }
+.regional-lead-form label { display:grid; gap:6px; color:#334752; font-size:.73rem; font-weight:800; }
+.regional-lead-form input,
+.regional-lead-form select,
+.regional-lead-form textarea { width:100%; border:1px solid #d9e0e3; border-radius:11px; background:#fbfcfc; color:var(--ink); padding:11px 12px; }
+.regional-lead-form input:focus,
+.regional-lead-form select:focus,
+.regional-lead-form textarea:focus { outline:0; border-color:var(--blue); box-shadow:0 0 0 4px rgba(33,184,230,.12); }
+.regional-lead-form textarea { resize:vertical; }
+.regional-lead-form .field-row { gap:12px; }
+.lead-consent { grid-template-columns:auto 1fr!important; align-items:start; color:var(--muted)!important; font-weight:500!important; }
+.lead-consent input { width:auto; margin-top:4px; }
+.lead-confirmation { margin-top:20px; padding:19px; border-radius:16px; background:var(--blue-soft); }
+.lead-confirmation[hidden] { display:none; }
+.lead-confirmation strong { display:block; margin-bottom:5px; }
+.lead-confirmation p { margin:0 0 8px; color:#38515f; font-size:.82rem; }
+.lead-confirmation a { color:#167fa2; font-size:.8rem; font-weight:850; }
+@media(max-width:900px){.lead-routing-layout{grid-template-columns:1fr}.lead-routing-map,.lead-capture-panel{min-height:auto}.lead-map-stage{min-height:560px}}
+@media(max-width:680px){.lead-routing-map{padding:18px}.lead-map-toolbar{align-items:flex-start;flex-direction:column}.lead-map-toolbar span{text-align:left}.lead-map-stage{min-height:440px}.lead-capture-panel{padding:20px 16px}.lead-regional-card{padding:20px}.regional-lead-form .field-row{grid-template-columns:1fr}}
