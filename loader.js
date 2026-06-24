@@ -3,8 +3,8 @@
 
   const status = document.querySelector('[data-loader-status]');
   const indexParts = ['00', '01', '02', '03', '04'].map((part) => `src/index/${part}.html`);
-  const styleParts = ['00', '01', '02', '03', '04', '05', '06'].map((part) => `src/styles/${part}.css`);
-  const scriptParts = ['00', '01', '02', '03'].map((part) => `src/scripts/${part}.js`);
+  const styleParts = ['00', '01', '02', '03', '04', '05', '06', '07'].map((part) => `src/styles/${part}.css`);
+  const scriptParts = ['00', '01', '02', '04'].map((part) => `src/scripts/${part}.js`);
 
   const fetchText = async (path) => {
     const response = await fetch(path, { cache: 'no-cache', credentials: 'same-origin' });
@@ -34,11 +34,11 @@
     const [styleHash, scriptHash] = await Promise.all([sha256(safeCss), sha256(safeScript)]);
     const policy = [
       "default-src 'self'",
-      "img-src 'self' data: https://lamusica.com.br",
+      "img-src 'self' data: https://lamusica.com.br https://raw.githubusercontent.com",
       `style-src 'self' 'sha256-${styleHash}'`,
       `script-src 'self' 'sha256-${scriptHash}'`,
       "font-src 'self'",
-      "connect-src 'self' https://raw.githubusercontent.com",
+      "connect-src 'none'",
       "object-src 'none'",
       "base-uri 'none'",
       "form-action 'self'",

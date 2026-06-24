@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/mapa-brasil-leads
+      - fix-mapa-brasil-local-v2
   pull_request:
     branches:
       - main
@@ -18,11 +19,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate JavaScript
         run: |
-          cat src/scripts/*.js > /tmp/site.js
+          cat src/scripts/00.js src/scripts/01.js src/scripts/02.js src/scripts/04.js > /tmp/site.js
           node --check /tmp/site.js
-      - name: Validate feature files
+      - name: Validate resilient map
         run: |
-          test -f src/scripts/03.js
-          test -f src/styles/06.css
-          grep -q "NOVO LEAD" src/scripts/03.js
-          grep -q "raw.githubusercontent.com" loader.js
+          test -f src/scripts/04.js
+          test -f src/styles/07.css
+          grep -q "NOVO LEAD" src/scripts/04.js
+          grep -q "scriptParts = \['00', '01', '02', '04'\]" loader.js
+          grep -q "img-src 'self' data: https://lamusica.com.br https://raw.githubusercontent.com" loader.js
+          grep -q "connect-src 'none'" loader.js
