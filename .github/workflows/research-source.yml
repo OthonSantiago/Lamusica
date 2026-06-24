@@ -1,0 +1,95 @@
+name: Research public source content
+
+on:
+  push:
+    branches:
+      - research/source-content
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch public La Música pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p source
+          urls=(
+            "https://lamusica.com.br/artistas/"
+            "https://lamusica.com.br/representantes/"
+            "https://lamusica.com.br/elias-coutinho/"
+            "https://lamusica.com.br/theo-santos/"
+            "https://lamusica.com.br/herson-amorin/"
+            "https://lamusica.com.br/samuel-pompeo/"
+          )
+          for url in "${urls[@]}"; do
+            slug=$(echo "$url" | awk -F/ '{print $(NF-1)}')
+            echo "Fetching $url"
+            curl --fail --location --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120 \
+              -A "Mozilla/5.0" "$url" -o "source/${slug}.html"
+          done
+
+      - name: Extract readable text and media references
+        shell: bash
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import json, re
+
+          class Extractor(HTMLParser):
+              def __init__(self, base):
+                  super().__init__()
+                  self.base = base
+                  self.skip = 0
+                  self.text = []
+                  self.links = []
+                  self.images = []
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if tag in {'script','style','noscript','svg'}:
+                      self.skip += 1
+                  if tag == 'a' and attrs.get('href'):
+                      self.links.append(urljoin(self.base, attrs['href']))
+                  if tag == 'img':
+                      src = attrs.get('src') or attrs.get('data-src') or attrs.get('data-lazy-src')
+                      if src:
+                          self.images.append(urljoin(self.base, src))
+              def handle_endtag(self, tag):
+                  if tag in {'script','style','noscript','svg'} and self.skip:
+                      self.skip -= 1
+                  if tag in {'p','h1','h2','h3','h4','h5','h6','li','div','br'}:
+                      self.text.append('\n')
+              def handle_data(self, data):
+                  if not self.skip:
+                      cleaned = re.sub(r'\s+', ' ', data).strip()
+                      if cleaned:
+                          self.text.append(cleaned + ' ')
+
+          for path in Path('source').glob('*.html'):
+              base = f"https://lamusica.com.br/{path.stem}/"
+              parser = Extractor(base)
+              parser.feed(path.read_text(encoding='utf-8', errors='ignore'))
+              text = ''.join(parser.text)
+              text = re.sub(r'\n\s*\n+', '\n', text)
+              Path(f'source/{path.stem}.txt').write_text(text, encoding='utf-8')
+              Path(f'source/{path.stem}.json').write_text(json.dumps({
+                  'links': sorted(set(parser.links)),
+                  'images': sorted(set(parser.images)),
+              }, ensure_ascii=False, indent=2), encoding='utf-8')
+              print(f"===== {path.stem.upper()} =====")
+              print(text[:25000])
+              print("===== MEDIA =====")
+              print(json.dumps({'images': sorted(set(parser.images)), 'links': sorted(set(parser.links))}, ensure_ascii=False)[:20000])
+          PY
+
+      - name: Upload research artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lamusica-public-source
+          path: source/
+          retention-days: 1
