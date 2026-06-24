@@ -38,7 +38,7 @@
       `style-src 'self' 'sha256-${styleHash}'`,
       `script-src 'self' 'sha256-${scriptHash}'`,
       "font-src 'self'",
-      "connect-src 'none'",
+      "connect-src 'self' https://raw.githubusercontent.com",
       "object-src 'none'",
       "base-uri 'none'",
       "form-action 'self'",
