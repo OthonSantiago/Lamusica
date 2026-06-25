@@ -1,8 +1,13 @@
 (() => {
   'use strict';
 
+  const hero = document.querySelector('.hero');
   const stage = document.querySelector('.hero-art');
-  if (!stage) return;
+  if (!hero || !stage) return;
+
+  if (!hero.querySelector('.hero-obelisk-accent')) {
+    hero.insertAdjacentHTML('afterbegin', '<div class="hero-obelisk-accent" aria-hidden="true"></div>');
+  }
 
   stage.className = 'hero-art hero-product-stage';
   stage.setAttribute('data-hero-product', '');
