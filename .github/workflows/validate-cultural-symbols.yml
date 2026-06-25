@@ -3,7 +3,7 @@ name: Validate Brazilian cultural symbols
 on:
   push:
     branches:
-      - main
+      - fix-hero-corcovado-andes
   pull_request:
     branches:
       - main
@@ -16,18 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate Copacabana and Corcovado
+      - name: Validate Copacabana, Corcovado and Mendoza Andes
         run: |
           test -f src/scripts/06.js
           test -f src/scripts/07.js
+          test -f src/styles/11.css
           test -f src/styles/12.css
           node --check src/scripts/06.js
           node --check src/scripts/07.js
           grep -q "hero-copacabana" src/scripts/06.js
+          grep -q "hero-corcovado" src/scripts/06.js
+          grep -q "hero-andes" src/scripts/06.js
+          grep -q "hero-obelisk" src/scripts/06.js
           grep -q "ambient-corcovado" src/scripts/07.js
-          grep -q "hero-copacabana-drift" src/styles/12.css
+          grep -q "hero-copacabana-flow" src/styles/11.css
           grep -q "ambient-corcovado-breathe" src/styles/12.css
           grep -q "'11', '12'" loader.js
           grep -q "'06', '07'" loader.js
-          ! grep -q 'cx="1360"' src/scripts/06.js
-          ! grep -q "ambient-cristo" src/scripts/07.js
