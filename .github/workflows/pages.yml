@@ -12,13 +12,18 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pages-production
+  cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build static site
+  deploy:
+    name: Build and deploy static site
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,37 +33,39 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Build one-page artifact
+      - name: Build consolidated page
         run: |
-          set -euo pipefail
+          set -euxo pipefail
+          python3 -m py_compile tools/build_pages.py
           python3 tools/build_pages.py
 
-          test -f _site/index.html
-          test -f _site/.nojekyll
-          test -f _site/assets/maps/brazil-states.svg
-          ! grep -q 'loader.js' _site/index.html
-          ! grep -q 'loader.css' _site/index.html
-          ! grep -q 'src="script.js"' _site/index.html
-          ! grep -q 'href="styles.css"' _site/index.html
-          ! grep -q '__HERO_BACKGROUND_DATA__' _site/index.html
-          ! grep -q '__HERO_PRODUCT_DATA__' _site/index.html
-          grep -q 'data:image/webp;base64,' _site/index.html
-          grep -q 'id="inicio"' _site/index.html
-          grep -q 'id="contato"' _site/index.html
+      - name: Validate publication artifact
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          page_path = Path('_site/index.html')
+          assert page_path.is_file(), 'index.html não foi gerado'
+          page = page_path.read_text(encoding='utf-8')
+
+          assert Path('_site/.nojekyll').is_file(), '.nojekyll ausente'
+          assert Path('_site/assets/maps/brazil-states.svg').is_file(), 'mapa ausente'
+          assert 'id="inicio"' in page, 'seção inicial ausente'
+          assert 'id="contato"' in page, 'seção de contato ausente'
+          assert '__HERO_BACKGROUND_DATA__' not in page, 'placeholder do background não substituído'
+          assert '__HERO_PRODUCT_DATA__' not in page, 'placeholder do produto não substituído'
+          assert page.count('data:image/webp;base64,') >= 2, 'background ou produto não incorporado'
+          assert 'loader.js' not in page and 'loader.css' not in page, 'loader legado ainda presente'
+          assert 'src="script.js"' not in page and 'href="styles.css"' not in page, 'assets legados ainda presentes'
+
+          print(f'Artefato validado: {page_path.stat().st_size} bytes')
+          PY
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
-  deploy:
-    name: Deploy static site
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
