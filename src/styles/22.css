@@ -1,0 +1,44 @@
+/*
+ * Background final aprovado pelo usuário.
+ * O cenário é independente do produto e reproduz a composição de referência.
+ */
+.hero-obelisk-accent{
+  display:none!important;
+}
+
+.hero::before{
+  background:
+    linear-gradient(90deg,rgba(2,14,24,.12) 0%,rgba(2,14,24,.08) 30%,rgba(2,14,24,.02) 55%,transparent 76%),
+    linear-gradient(180deg,rgba(2,14,24,.04) 0%,transparent 52%,rgba(2,14,24,.08) 100%)!important;
+}
+
+.hero::after{
+  inset:0!important;
+  background-image:url('assets/hero/hero-landscape-final.webp')!important;
+  background-position:center center!important;
+  background-size:100% 100%!important;
+  background-repeat:no-repeat!important;
+  filter:none!important;
+  transform:translate3d(var(--hero-scene-x),var(--hero-scene-y),0) scale(1.001)!important;
+  animation:hero-approved-background 24s ease-in-out infinite alternate!important;
+}
+
+@keyframes hero-approved-background{
+  to{
+    transform:translate3d(var(--hero-scene-x),var(--hero-scene-y),0) scale(1.006);
+  }
+}
+
+@media(max-width:780px){
+  .hero::after{
+    background-size:cover!important;
+    background-position:70% center!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero::after{
+    animation:none!important;
+    transform:none!important;
+  }
+}
