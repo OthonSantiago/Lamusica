@@ -1,0 +1,1 @@
+.hero::after{background-image:var(--hero-background-image,none)!important}.hero:not(.hero-background-ready)::after{opacity:0!important}.hero.hero-background-ready::after{opacity:1!important;transition:opacity .45s ease!important}
