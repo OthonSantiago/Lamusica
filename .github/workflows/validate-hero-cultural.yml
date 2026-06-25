@@ -3,7 +3,7 @@ name: Validate cultural hero
 on:
   push:
     branches:
-      - fix-hero-corcovado-andes
+      - feat-hero-real-motion
   pull_request:
     branches:
       - main
@@ -16,21 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate clean cultural hero
+      - name: Validate final cultural hero
         run: |
           test -f src/scripts/06.js
-          test -f src/styles/11.css
+          test -f src/styles/13.css
+          test -f src/styles/14.css
           node --check src/scripts/06.js
           grep -q "hero-cultural-bg" src/scripts/06.js
           grep -q "hero-andes" src/scripts/06.js
-          grep -q "hero-corcovado" src/scripts/06.js
-          grep -q "hero-christ" src/scripts/06.js
+          grep -q "hero-sugarloaf" src/scripts/06.js
           grep -q "hero-obelisk" src/scripts/06.js
           grep -q "hero-copacabana" src/scripts/06.js
-          grep -q "hero-copacabana-flow" src/styles/11.css
-          grep -q "hero-corcovado-breathe" src/styles/11.css
+          grep -q "pointermove" src/scripts/06.js
+          grep -q "hero-product-float" src/styles/14.css
           ! grep -q "hero-rhythm-label" src/scripts/06.js
           ! grep -q "hero-bandoneon" src/scripts/06.js
           ! grep -q "hero-sax-line" src/scripts/06.js
-          grep -q "'10', '11', '12'" loader.js
-          grep -q "'05', '06', '07'" loader.js
+          grep -q "'13', '14'" loader.js
