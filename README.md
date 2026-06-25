@@ -1,34 +1,43 @@
-# La Música — entrega pública
+# La Música — site institucional
 
-Site institucional responsivo da La Música, estruturado para apresentar a empresa como importadora e distribuidora B2B de marcas especializadas em instrumentos de sopro.
-
-Este repositório é a **versão pública de entrega**, utilizada para dar visibilidade ao cliente e publicar o site no GitHub Pages. O desenvolvimento completo, a documentação técnica e os materiais internos são mantidos separadamente no repositório privado `Lamusica-source`.
+Site institucional responsivo da La Música, voltado à apresentação da empresa como importadora e distribuidora B2B de marcas especializadas em instrumentos de sopro.
 
 ## Site publicado
 
-URL prevista no GitHub Pages:
-
 `https://othonsantiago.github.io/Lamusica/`
 
-O deploy é automático a cada atualização da branch `main` pelo workflow `.github/workflows/pages.yml`.
+O deploy acontece automaticamente a cada atualização da branch `main` pelo workflow `.github/workflows/pages.yml`.
 
-### Ativação inicial no GitHub
+### Configuração do GitHub Pages
 
-1. Acesse **Settings → Pages** no repositório.
-2. Em **Build and deployment**, selecione **GitHub Actions** como fonte.
-3. Abra a aba **Actions** e execute novamente o workflow **Deploy GitHub Pages**, caso necessário.
+Em **Settings → Pages → Build and deployment**, a fonte deve estar definida como **GitHub Actions**. Não crie um segundo workflow pelo catálogo de modelos, porque o projeto já possui o workflow oficial de publicação.
 
-## Conteúdo da versão
+## Estrutura canônica
+
+O código-fonte permanece organizado em módulos, mas o build publica uma única página estática em `_site/index.html`.
+
+Arquivos utilizados na publicação:
+
+- `src/index/00.html` até `src/index/04.html`: conteúdo da página;
+- `src/styles/00.css` até `src/styles/15.css`: estilos gerais;
+- `src/styles/final.css`: composição definitiva do hero;
+- `src/styles/runtime-assets.css`: ligação dos assets reconstruídos em runtime;
+- `src/scripts/00.js`, `01.js`, `02.js`, `04.js` e `08.js`: comportamento ativo;
+- `src/assets-source/hero-background-v2/`: background aprovado;
+- `src/assets-source/hero-product/`: caixa de palhetas separada do background;
+- `tools/build_pages.py`: consolidação do site em uma página;
+- `.github/workflows/pages.yml`: build e deploy do GitHub Pages.
+
+Não devem ser recriados arquivos numerados adicionais para corrigir o hero. Alterações futuras do hero devem ser feitas apenas em `src/styles/final.css` e `src/scripts/08.js`.
+
+## Conteúdo
 
 - posicionamento da La Música como ponte entre fabricantes, lojistas, representantes, artistas e músicos;
 - catálogo institucional por categoria, sem venda direta ao consumidor final;
-- guia para orientar músicos até um revendedor ou representante;
 - apresentação das marcas distribuídas;
-- área de artistas com nove perfis, fotografias e mini biografias;
-- mapa comercial com representantes em 18 estados;
-- área de cadastro para lojistas e interesse de novos representantes;
-- formulário que prepara o atendimento no WhatsApp;
-- aviso inicial de privacidade;
+- área de artistas e representantes comerciais;
+- jornadas para lojistas, músicos e novos representantes;
+- formulário de atendimento pelo WhatsApp;
 - navegação responsiva e acessível.
 
 ## Executar localmente
@@ -39,7 +48,13 @@ python -m http.server 8000
 
 Acesse `http://localhost:8000`.
 
-O site não usa frameworks, rastreadores, cookies nem dependências externas.
+## Gerar o mesmo artefato publicado
+
+```bash
+python tools/build_pages.py
+```
+
+O resultado será criado em `_site/`. O site não utiliza frameworks, rastreadores ou cookies.
 
 ## Validação de conteúdo
 
