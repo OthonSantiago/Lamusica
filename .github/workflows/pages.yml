@@ -48,7 +48,7 @@ jobs:
             ./ _site/
 
           mkdir -p _site/assets/hero
-          cat src/assets-source/hero-background/part-*.b64 \
+          cat src/assets-source/hero-background-v2/part-*.b64 \
             | tr -d '\n\r ' \
             | base64 --decode \
             > _site/assets/hero/hero-landscape-final.webp
@@ -58,10 +58,10 @@ jobs:
             | base64 --decode \
             > _site/assets/hero/hero-product-reeds.webp
 
-          test "$(stat -c%s _site/assets/hero/hero-landscape-final.webp)" = "70964"
+          test "$(stat -c%s _site/assets/hero/hero-landscape-final.webp)" = "21818"
           test "$(head -c 4 _site/assets/hero/hero-landscape-final.webp)" = "RIFF"
           test "$(dd if=_site/assets/hero/hero-landscape-final.webp bs=1 skip=8 count=4 2>/dev/null)" = "WEBP"
-          echo "9a680b7905e9da31ab18de52d39e7b46fe48217d32cb24ac523aa923401b8d13  _site/assets/hero/hero-landscape-final.webp" | sha256sum -c -
+          echo "42a674cb607ad0945c88f8e201f18249b2ffe035ef721423dcee4448e52ebea8  _site/assets/hero/hero-landscape-final.webp" | sha256sum -c -
 
           test "$(stat -c%s _site/assets/hero/hero-product-reeds.webp)" = "22758"
           test "$(head -c 4 _site/assets/hero/hero-product-reeds.webp)" = "RIFF"
@@ -71,8 +71,9 @@ jobs:
           touch _site/.nojekyll
           test -f _site/index.html
           test -f _site/loader.js
-          test -f _site/src/styles/20.css
+          test -f _site/src/styles/21.css
           test -f _site/src/scripts/08.js
+          test -f _site/assets/hero/hero-landscape-final.webp
           test -f _site/assets/hero/hero-product-reeds.webp
 
       - name: Upload GitHub Pages artifact
