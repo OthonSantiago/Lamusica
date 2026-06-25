@@ -14,21 +14,20 @@ Em **Settings → Pages → Build and deployment**, a fonte deve estar definida 
 
 ## Estrutura canônica
 
-O código-fonte permanece organizado em módulos, mas o build publica uma única página estática em `_site/index.html`.
+O código-fonte permanece organizado em módulos, mas o build publica uma única página estática em `_site/index.html`. O background aprovado e a caixa de palhetas são incorporados diretamente nessa página para evitar falhas de caminho e cache.
 
 Arquivos utilizados na publicação:
 
 - `src/index/00.html` até `src/index/04.html`: conteúdo da página;
 - `src/styles/00.css` até `src/styles/15.css`: estilos gerais;
 - `src/styles/final.css`: composição definitiva do hero;
-- `src/styles/runtime-assets.css`: ligação dos assets reconstruídos em runtime;
 - `src/scripts/00.js`, `01.js`, `02.js`, `04.js` e `08.js`: comportamento ativo;
 - `src/assets-source/hero-background-v2/`: background aprovado;
 - `src/assets-source/hero-product/`: caixa de palhetas separada do background;
-- `tools/build_pages.py`: consolidação do site em uma página;
+- `tools/build_pages.py`: consolidação do site e incorporação dos assets em uma página;
 - `.github/workflows/pages.yml`: build e deploy do GitHub Pages.
 
-Não devem ser recriados arquivos numerados adicionais para corrigir o hero. Alterações futuras do hero devem ser feitas apenas em `src/styles/final.css` e `src/scripts/08.js`.
+A caixa permanece independente e substituível pelo atributo `data-hero-product`. Não devem ser recriados arquivos numerados adicionais para corrigir o hero. Alterações futuras devem ser feitas apenas em `src/styles/final.css`, `src/scripts/08.js` e nos diretórios de assets correspondentes.
 
 ## Conteúdo
 
