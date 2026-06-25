@@ -1,2 +1,213 @@
-/* Hero final com a arte real aprovada */
-.hero{isolation:isolate;background:#061725}.hero::before{z-index:1;opacity:.14;background-image:linear-gradient(90deg,rgba(4,18,30,.92) 0%,rgba(4,18,30,.78) 34%,rgba(4,18,30,.28) 58%,rgba(4,18,30,.08) 100%),linear-gradient(to bottom,rgba(4,18,30,.12),rgba(4,18,30,.08) 58%,rgba(4,18,30,.42) 100%);background-size:auto;mask-image:none}.hero::after{content:"";position:absolute;z-index:0;inset:-3% -2% -3% 36%;background-image:url("assets/hero/hero-la-musica-scene-v4.webp");background-repeat:no-repeat;background-position:center;background-size:cover;opacity:.98;filter:saturate(.94) contrast(1.02);transform:translate3d(var(--hero-parallax-x,0),var(--hero-parallax-y,0),0) scale(1.035);transform-origin:center;transition:transform .18s ease-out;animation:hero-real-scene-breathe 16s ease-in-out infinite alternate;mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.72) 15%,#000 31%)}.hero-cultural-bg,.hero-art,.hero-wave,.hero-noise{display:none!important}.hero-grid{position:relative;z-index:3}.hero-copy{position:relative;z-index:4}.hero-copy::after{content:"";position:absolute;z-index:-1;inset:-38px -54px -38px -80px;background:radial-gradient(circle at 44% 48%,rgba(4,18,30,.58),rgba(4,18,30,.18) 56%,transparent 76%);filter:blur(12px);pointer-events:none}.hero h1{max-width:690px}.hero-copy>p{max-width:600px}.hero-actions{position:relative;z-index:5}@keyframes hero-real-scene-breathe{0%{transform:translate3d(var(--hero-parallax-x,0),var(--hero-parallax-y,0),0) scale(1.025)}100%{transform:translate3d(var(--hero-parallax-x,0),var(--hero-parallax-y,0),0) scale(1.055)}}@media(max-width:1100px){.hero::after{inset:-2% -12% -2% 31%;background-position:53% center;opacity:.88}.hero::before{background-image:linear-gradient(90deg,rgba(4,18,30,.94) 0%,rgba(4,18,30,.8) 42%,rgba(4,18,30,.3) 68%,rgba(4,18,30,.14) 100%)}}@media(max-width:780px){.hero{min-height:760px;padding-top:132px;padding-bottom:96px}.hero-grid{grid-template-columns:1fr}.hero::after{inset:0;background-position:58% center;opacity:.42;mask-image:linear-gradient(to bottom,rgba(0,0,0,.68) 0%,#000 38%,#000 100%);filter:saturate(.88) contrast(1.04)}.hero::before{background-image:linear-gradient(to bottom,rgba(4,18,30,.82) 0%,rgba(4,18,30,.68) 44%,rgba(4,18,30,.46) 100%)}.hero-copy::after{inset:-26px -22px;background:rgba(4,18,30,.18);filter:blur(22px)}.hero h1{font-size:clamp(3.1rem,15vw,5rem)}}@media(prefers-reduced-motion:reduce){.hero::after{animation:none!important;transition:none!important;transform:none!important}}
+/* Hero final: cenário cultural independente + produto substituível. */
+.hero {
+  isolation: isolate;
+  min-height: 900px;
+  padding: 158px 0 96px;
+  background: #061725;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -2.5%;
+  background-image: url("assets/hero/hero-background-final.webp");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  filter: saturate(.96) contrast(1.02);
+  transform: translate3d(var(--hero-parallax-x, 0), var(--hero-parallax-y, 0), 0) scale(1.025);
+  transform-origin: center;
+  transition: transform .18s ease-out;
+  animation: hero-background-breathe 18s ease-in-out infinite alternate;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  opacity: 1;
+  background-image:
+    linear-gradient(90deg,
+      rgba(3, 17, 29, .98) 0%,
+      rgba(3, 17, 29, .91) 29%,
+      rgba(3, 17, 29, .69) 43%,
+      rgba(3, 17, 29, .24) 62%,
+      rgba(3, 17, 29, .06) 100%),
+    linear-gradient(to bottom,
+      rgba(3, 17, 29, .24) 0%,
+      rgba(3, 17, 29, .04) 48%,
+      rgba(3, 17, 29, .56) 100%);
+  background-size: auto;
+  mask-image: none;
+  pointer-events: none;
+}
+
+.hero-noise,
+.hero-cultural-bg,
+.hero-wave,
+.sound-ring,
+.floating-note,
+.reed-card-back {
+  display: none !important;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 3;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .72fr);
+  gap: 22px;
+  min-height: 645px;
+  align-items: center;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 4;
+  max-width: 720px;
+}
+
+.hero-copy::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -52px -74px -48px -110px;
+  background: radial-gradient(circle at 48% 48%, rgba(3, 17, 29, .62), rgba(3, 17, 29, .22) 58%, transparent 78%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+.hero h1 {
+  max-width: 700px;
+  margin-top: 24px;
+  margin-bottom: 26px;
+  font-size: clamp(4.25rem, 6.25vw, 6.9rem);
+}
+
+.hero-copy > p {
+  max-width: 590px;
+  margin-bottom: 31px;
+  font-size: 1.02rem;
+  color: rgba(255, 255, 255, .78);
+}
+
+.hero-actions {
+  position: relative;
+  z-index: 6;
+}
+
+.hero-metrics {
+  display: none;
+}
+
+@keyframes hero-background-breathe {
+  0% {
+    transform: translate3d(var(--hero-parallax-x, 0), var(--hero-parallax-y, 0), 0) scale(1.018);
+  }
+  100% {
+    transform: translate3d(var(--hero-parallax-x, 0), var(--hero-parallax-y, 0), 0) scale(1.04);
+  }
+}
+
+@media (min-width: 1450px) {
+  .hero .container,
+  .site-header .container {
+    width: min(1380px, calc(100% - 72px));
+  }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.04fr) minmax(400px, .72fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    min-height: 830px;
+    padding-top: 145px;
+  }
+  .hero::after {
+    inset: -2% -10% -2% -6%;
+    background-position: 58% center;
+  }
+  .hero::before {
+    background-image:
+      linear-gradient(90deg,
+        rgba(3, 17, 29, .98) 0%,
+        rgba(3, 17, 29, .9) 38%,
+        rgba(3, 17, 29, .42) 69%,
+        rgba(3, 17, 29, .12) 100%),
+      linear-gradient(to bottom, rgba(3, 17, 29, .2), rgba(3, 17, 29, .5));
+  }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .62fr);
+    min-height: 575px;
+    gap: 8px;
+  }
+  .hero h1 {
+    font-size: clamp(3.7rem, 7.6vw, 5.7rem);
+  }
+}
+
+@media (max-width: 780px) {
+  .hero {
+    min-height: 1030px;
+    padding-top: 126px;
+    padding-bottom: 72px;
+  }
+  .hero::after {
+    inset: 0;
+    background-position: 69% center;
+    opacity: .78;
+    filter: saturate(.9) contrast(1.04);
+    animation-duration: 22s;
+  }
+  .hero::before {
+    background-image:
+      linear-gradient(to bottom,
+        rgba(3, 17, 29, .94) 0%,
+        rgba(3, 17, 29, .82) 44%,
+        rgba(3, 17, 29, .44) 69%,
+        rgba(3, 17, 29, .72) 100%);
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 12px;
+  }
+  .hero-copy {
+    max-width: 100%;
+  }
+  .hero-copy::after {
+    inset: -28px -22px;
+    background: rgba(3, 17, 29, .22);
+    filter: blur(24px);
+  }
+  .hero h1 {
+    max-width: 600px;
+    font-size: clamp(3.25rem, 15vw, 5.1rem);
+  }
+  .hero-copy > p {
+    max-width: 550px;
+    font-size: .98rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 970px;
+  }
+  .hero::after {
+    background-position: 72% center;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 16vw, 4.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
