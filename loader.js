@@ -1,13 +1,12 @@
 (() => {
   'use strict';
 
-  const BUILD_VERSION = '20260625-static1';
+  const BUILD_VERSION = '20260625-static2';
   const status = document.querySelector('[data-loader-status]');
   const indexParts = ['00', '01', '02', '03', '04'].map((part) => `src/index/${part}.html`);
   const styleParts = [
     ...Array.from({ length: 16 }, (_, index) => `src/styles/${String(index).padStart(2, '0')}.css`),
-    'src/styles/final.css',
-    'src/styles/runtime-assets.css'
+    'src/styles/final.css'
   ];
   const scriptParts = ['00', '01', '02', '04', '08'].map((part) => `src/scripts/${part}.js`);
 
@@ -23,6 +22,13 @@
 
   const joinParts = async (paths) => (await Promise.all(paths.map(fetchText))).join('\n');
 
+  const loadBase64Asset = async (directory) => {
+    const paths = [0, 1, 2, 3].map(
+      (index) => `${directory}/part-${String(index).padStart(2, '0')}.b64`
+    );
+    return (await joinParts(paths)).replace(/\s+/g, '');
+  };
+
   const sha256 = async (text) => {
     const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
     const bytes = new Uint8Array(digest);
@@ -32,11 +38,29 @@
   };
 
   const render = async () => {
-    const [htmlSource, cssSource, scriptSource] = await Promise.all([
+    const [htmlSource, rawCssSource, rawScriptSource, backgroundBase64, productBase64] = await Promise.all([
       joinParts(indexParts),
       joinParts(styleParts),
-      joinParts(scriptParts)
+      joinParts(scriptParts),
+      loadBase64Asset('src/assets-source/hero-background-v2'),
+      loadBase64Asset('src/assets-source/hero-product')
     ]);
+
+    const cssSource = rawCssSource.replace(
+      '__HERO_BACKGROUND_DATA__',
+      `data:image/webp;base64,${backgroundBase64}`
+    );
+    const scriptSource = rawScriptSource.replace(
+      '__HERO_PRODUCT_DATA__',
+      `data:image/webp;base64,${productBase64}`
+    );
+
+    if (cssSource.includes('__HERO_BACKGROUND_DATA__')) {
+      throw new Error('O background do hero não foi incorporado.');
+    }
+    if (scriptSource.includes('__HERO_PRODUCT_DATA__')) {
+      throw new Error('O produto do hero não foi incorporado.');
+    }
 
     const safeCss = cssSource.replace(/<\/style/gi, '<\\/style');
     const safeScript = scriptSource.replace(/<\/script/gi, '<\\/script');
