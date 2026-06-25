@@ -32,9 +32,16 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/build_pages.py
+
+          mkdir -p _site/src/assets-source
+          cp -R src/assets-source/hero-background-v2 _site/src/assets-source/
+          cp -R src/assets-source/hero-product _site/src/assets-source/
+
           test -f _site/index.html
           test -f _site/.nojekyll
           test -f _site/assets/maps/brazil-states.svg
+          test -f _site/src/assets-source/hero-background-v2/part-00.b64
+          test -f _site/src/assets-source/hero-product/part-00.b64
           ! grep -q 'loader.js' _site/index.html
           ! grep -q 'loader.css' _site/index.html
           ! grep -q 'src="script.js"' _site/index.html
