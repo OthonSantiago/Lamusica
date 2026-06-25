@@ -5,7 +5,7 @@
   const stage = document.querySelector('.hero-art');
   if (!hero || !stage) return;
 
-  const OFFICIAL_PRODUCT = 'https://www.gonzalezreeds.com.au/web/image/2575-1cb61823/RC%20Main.png';
+  const DEFAULT_PRODUCT = 'assets/hero/hero-product-reeds.webp';
 
   if (!hero.querySelector('.hero-obelisk-accent')) {
     hero.insertAdjacentHTML('afterbegin', '<div class="hero-obelisk-accent" aria-hidden="true"></div>');
@@ -27,15 +27,12 @@
       </div>
     </div>`;
 
-  const configuredProduct = document.documentElement.dataset.heroProduct || OFFICIAL_PRODUCT;
-  if (!configuredProduct) return;
-
+  const configuredProduct = document.documentElement.dataset.heroProduct || DEFAULT_PRODUCT;
   const image = new Image();
   image.className = 'hero-product-image';
-  image.alt = 'Caixa de palhetas Gonzalez distribuída pela La Música';
+  image.alt = 'Caixa de palhetas La Música em destaque';
   image.decoding = 'async';
   image.fetchPriority = 'high';
-  image.referrerPolicy = 'no-referrer';
   image.addEventListener('load', () => {
     stage.prepend(image);
     stage.classList.add('has-product-image');
