@@ -3,7 +3,7 @@
 
   const status = document.querySelector('[data-loader-status]');
   const indexParts = ['00', '01', '02', '03', '04'].map((part) => `src/index/${part}.html`);
-  const styleParts = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'].map((part) => `src/styles/${part}.css`);
+  const styleParts = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'].map((part) => `src/styles/${part}.css`);
   const scriptParts = ['00', '01', '02', '04', '05', '06', '07', '08'].map((part) => `src/scripts/${part}.js`);
 
   const fetchText = async (path) => {
@@ -34,7 +34,7 @@
     const [styleHash, scriptHash] = await Promise.all([sha256(safeCss), sha256(safeScript)]);
     const policy = [
       "default-src 'self'",
-      "img-src 'self' data: https://lamusica.com.br",
+      "img-src 'self' data: https://lamusica.com.br https://www.gonzalezreeds.com.au",
       `style-src 'self' 'sha256-${styleHash}'`,
       `script-src 'self' 'sha256-${scriptHash}'`,
       "font-src 'self'",
