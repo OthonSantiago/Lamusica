@@ -1,0 +1,347 @@
+/*
+ * Final public composition.
+ * This file replaces the accumulated hero patches (16.css through 22.css).
+ * The build script embeds the approved background directly into the page.
+ */
+
+:root {
+  --hero-scene-x: 0px;
+  --hero-scene-y: 0px;
+}
+
+.site-header {
+  position: absolute !important;
+  inset: 0 0 auto 0;
+  z-index: 50 !important;
+  height: 112px !important;
+  background: linear-gradient(180deg, rgba(2, 15, 26, .55), rgba(2, 15, 26, 0)) !important;
+  border-bottom: 0 !important;
+  backdrop-filter: none !important;
+}
+
+.site-header.scrolled {
+  position: fixed !important;
+  height: 82px !important;
+  background: rgba(2, 15, 26, .94) !important;
+  backdrop-filter: blur(18px) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .18) !important;
+}
+
+.site-header .container {
+  width: min(1576px, calc(100% - 64px)) !important;
+  max-width: none !important;
+}
+
+.brand {
+  width: 245px !important;
+}
+
+.main-nav {
+  gap: clamp(25px, 2.5vw, 42px) !important;
+}
+
+.main-nav a {
+  color: rgba(255, 255, 255, .94) !important;
+  font-size: 1.02rem !important;
+  font-weight: 500 !important;
+}
+
+.header-cta {
+  min-width: 160px !important;
+  min-height: 48px !important;
+  margin-left: 12px !important;
+}
+
+.hero {
+  --hero-reference-ratio: 1.7777778;
+  position: relative !important;
+  isolation: isolate !important;
+  min-height: 780px !important;
+  height: clamp(780px, 56.25vw, 960px) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #031421 !important;
+}
+
+.hero::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background-image: url("__HERO_BACKGROUND_DATA__") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: 100% 100% !important;
+  filter: none !important;
+  opacity: 1 !important;
+  transform: translate3d(var(--hero-scene-x), var(--hero-scene-y), 0) scale(1.002) !important;
+  transform-origin: center !important;
+  animation: hero-final-breathe 24s ease-in-out infinite alternate !important;
+}
+
+.hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, rgba(2, 15, 26, .16) 0%, rgba(2, 15, 26, .10) 30%, rgba(2, 15, 26, .035) 52%, transparent 72%),
+    linear-gradient(180deg, rgba(2, 15, 26, .06) 0%, transparent 52%, rgba(2, 15, 26, .10) 100%) !important;
+}
+
+.hero-cultural-bg,
+.hero-wave,
+.hero-noise,
+.hero-obelisk-accent,
+.sound-ring,
+.floating-note,
+.reed-card {
+  display: none !important;
+}
+
+.hero .container {
+  width: min(1480px, calc(100% - 80px)) !important;
+  max-width: none !important;
+}
+
+.hero-grid {
+  position: relative !important;
+  z-index: 3 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  min-height: 100% !important;
+  height: 100% !important;
+}
+
+.hero-copy {
+  position: relative !important;
+  z-index: 4 !important;
+  align-self: start !important;
+  max-width: 650px !important;
+  padding: clamp(190px, 12vw, 220px) 0 0 !important;
+}
+
+.hero-copy::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: -34px -70px -30px -44px !important;
+  pointer-events: none !important;
+  background: radial-gradient(ellipse at 34% 48%, rgba(2, 15, 26, .36), rgba(2, 15, 26, .10) 62%, transparent 80%) !important;
+  filter: blur(15px) !important;
+}
+
+.hero .eyebrow {
+  font-size: .78rem !important;
+  letter-spacing: .19em !important;
+}
+
+.hero .eyebrow::before {
+  width: 45px !important;
+}
+
+.hero h1 {
+  max-width: 650px !important;
+  margin: 30px 0 30px !important;
+  font-size: clamp(4.2rem, 4.8vw, 5.05rem) !important;
+  line-height: .95 !important;
+  letter-spacing: -.052em !important;
+}
+
+.hero-copy > p {
+  max-width: 600px !important;
+  margin: 0 0 34px !important;
+  color: rgba(255, 255, 255, .88) !important;
+  font-size: 1.08rem !important;
+  line-height: 1.72 !important;
+}
+
+.hero-actions {
+  gap: 44px !important;
+}
+
+.hero-actions .button {
+  min-width: 290px !important;
+  min-height: 60px !important;
+  padding-inline: 30px !important;
+  font-size: 1rem !important;
+}
+
+.hero-actions .text-link {
+  padding-bottom: 7px !important;
+  font-size: 1rem !important;
+}
+
+.hero-metrics {
+  display: none !important;
+}
+
+.hero-art.hero-product-stage {
+  position: relative !important;
+  z-index: 5 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-bottom: clamp(126px, 8.55vw, 143px) !important;
+  pointer-events: none !important;
+  transform: translate3d(calc(var(--hero-product-x, 0px) - clamp(120px, 11vw, 188px)), var(--hero-product-y, 0px), 0) !important;
+  transition: transform .18s ease-out !important;
+}
+
+.hero-product-image {
+  display: block !important;
+  width: clamp(280px, 17.65vw, 304px) !important;
+  max-width: none !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  clip-path: none !important;
+  transform: none !important;
+  transform-origin: center bottom !important;
+  filter: drop-shadow(0 34px 30px rgba(0, 0, 0, .46)) !important;
+  animation: hero-final-product 8s ease-in-out infinite !important;
+}
+
+.hero-product-stage.has-product-image .hero-product-shell {
+  display: none !important;
+}
+
+.hero-product-stage.product-image-failed .hero-product-shell {
+  display: block !important;
+}
+
+@keyframes hero-final-breathe {
+  to {
+    transform: translate3d(var(--hero-scene-x), var(--hero-scene-y), 0) scale(1.008);
+  }
+}
+
+@keyframes hero-final-product {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@media (min-width: 781px) and (max-width: 1199px) {
+  .site-header .container {
+    width: min(100% - 40px, 1120px) !important;
+  }
+
+  .hero {
+    min-height: 760px !important;
+    height: clamp(760px, 72vw, 880px) !important;
+  }
+
+  .hero .container {
+    width: min(100% - 48px, 1080px) !important;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(280px, .88fr) !important;
+  }
+
+  .hero-copy {
+    padding-top: 150px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.7rem, 7vw, 4.75rem) !important;
+  }
+
+  .hero-art.hero-product-stage {
+    padding-bottom: 100px !important;
+    transform: translate3d(calc(var(--hero-product-x, 0px) - 64px), var(--hero-product-y, 0px), 0) !important;
+  }
+
+  .hero-product-image {
+    width: clamp(235px, 27vw, 285px) !important;
+  }
+}
+
+@media (max-width: 780px) {
+  .site-header {
+    height: 88px !important;
+  }
+
+  .site-header .container {
+    width: calc(100% - 32px) !important;
+  }
+
+  .hero {
+    min-height: 930px !important;
+    height: auto !important;
+    padding-top: 100px !important;
+  }
+
+  .hero::after {
+    background-size: cover !important;
+    background-position: 69% center !important;
+    opacity: .84 !important;
+  }
+
+  .hero::before {
+    background: linear-gradient(180deg, rgba(2, 15, 26, .88) 0%, rgba(2, 15, 26, .75) 46%, rgba(2, 15, 26, .42) 70%, rgba(2, 15, 26, .64) 100%) !important;
+  }
+
+  .hero .container {
+    width: calc(100% - 36px) !important;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    align-content: start !important;
+  }
+
+  .hero-copy {
+    padding: 40px 0 12px !important;
+  }
+
+  .hero-copy::after {
+    inset: -20px !important;
+    background: rgba(2, 15, 26, .20) !important;
+    filter: blur(22px) !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 14vw, 4.25rem) !important;
+  }
+
+  .hero-copy > p {
+    font-size: .98rem !important;
+  }
+
+  .hero-actions {
+    gap: 22px !important;
+  }
+
+  .hero-actions .button {
+    min-width: 0 !important;
+  }
+
+  .hero-art.hero-product-stage {
+    min-height: 330px !important;
+    height: 330px !important;
+    align-items: center !important;
+    padding-bottom: 0 !important;
+    transform: translate3d(var(--hero-product-x, 0px), var(--hero-product-y, 0px), 0) !important;
+  }
+
+  .hero-product-image {
+    width: min(54vw, 245px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::after,
+  .hero-product-image {
+    animation: none !important;
+    transition: none !important;
+  }
+}
