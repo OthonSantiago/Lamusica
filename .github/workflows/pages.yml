@@ -53,16 +53,27 @@ jobs:
             | base64 --decode \
             > _site/assets/hero/hero-landscape-final.webp
 
+          cat src/assets-source/hero-product/part-*.b64 \
+            | tr -d '\n\r ' \
+            | base64 --decode \
+            > _site/assets/hero/hero-product-reeds.webp
+
           test "$(stat -c%s _site/assets/hero/hero-landscape-final.webp)" = "70964"
           test "$(head -c 4 _site/assets/hero/hero-landscape-final.webp)" = "RIFF"
           test "$(dd if=_site/assets/hero/hero-landscape-final.webp bs=1 skip=8 count=4 2>/dev/null)" = "WEBP"
           echo "9a680b7905e9da31ab18de52d39e7b46fe48217d32cb24ac523aa923401b8d13  _site/assets/hero/hero-landscape-final.webp" | sha256sum -c -
 
+          test "$(stat -c%s _site/assets/hero/hero-product-reeds.webp)" = "22758"
+          test "$(head -c 4 _site/assets/hero/hero-product-reeds.webp)" = "RIFF"
+          test "$(dd if=_site/assets/hero/hero-product-reeds.webp bs=1 skip=8 count=4 2>/dev/null)" = "WEBP"
+          echo "b01da53a6cbe0f0e78bfb2af111a0f6d38ce1c694422f0e2ab9fdd9e2e825615  _site/assets/hero/hero-product-reeds.webp" | sha256sum -c -
+
           touch _site/.nojekyll
           test -f _site/index.html
           test -f _site/loader.js
-          test -f _site/src/styles/16.css
+          test -f _site/src/styles/20.css
           test -f _site/src/scripts/08.js
+          test -f _site/assets/hero/hero-product-reeds.webp
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
