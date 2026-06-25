@@ -1,0 +1,45 @@
+name: Validate final hero asset
+
+on:
+  pull_request:
+    paths:
+      - 'assets/hero/source/**'
+      - 'src/styles/14.css'
+      - 'src/styles/15.css'
+      - 'src/scripts/06.js'
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/validate-final-hero-asset.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate background and replaceable product
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Rebuild and validate background
+        run: |
+          set -euo pipefail
+          cat assets/hero/source/hero-background-final.part*.b64 \
+            | tr -d '\n\r ' \
+            | base64 --decode \
+            > /tmp/hero-background-final.webp
+
+          test "$(head -c 4 /tmp/hero-background-final.webp)" = "RIFF"
+          test "$(dd if=/tmp/hero-background-final.webp bs=1 skip=8 count=4 2>/dev/null)" = "WEBP"
+          test "$(stat -c%s /tmp/hero-background-final.webp)" = "44838"
+          echo "aa583ea7715f02d1fb3c9249306eaa439f36eeaed4f27025f07e0e964c5d9766  /tmp/hero-background-final.webp" | sha256sum --check --strict
+
+      - name: Validate component separation
+        run: |
+          set -euo pipefail
+          grep -Fq 'background-image: url("assets/hero/hero-background-final.webp")' src/styles/15.css
+          grep -Fq '.hero-art {' src/styles/14.css
+          grep -Fq 'var(--hero-product-x' src/styles/14.css
+          grep -Fq 'var(--hero-parallax-x' src/scripts/06.js
+          ! grep -Fq '.hero-art,' src/styles/15.css
