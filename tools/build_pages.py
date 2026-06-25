@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build the GitHub Pages artifact as one self-contained static page.
 
-The source can remain organized in small HTML, CSS and JavaScript files, but the
-published site is a single index.html with CSS and JavaScript inlined. This
-removes the runtime loader, avoids ordering conflicts between hero patches and
-makes the hero assets independent of GitHub Pages cache behavior.
+The source remains organized in small HTML, CSS and JavaScript files, while the
+published artifact contains the approved background and the replaceable product
+embedded directly in one index.html. This avoids runtime asset failures and
+cache conflicts regardless of how GitHub Pages is configured.
 """
 
 from __future__ import annotations
@@ -56,14 +56,14 @@ def build() -> None:
         f"data:image/webp;base64,{background_base64}",
     )
     script_source = script_source.replace(
-        "const DEFAULT_PRODUCT = 'assets/hero/hero-product-reeds.webp';",
-        f"const DEFAULT_PRODUCT = 'data:image/webp;base64,{product_base64}';",
+        "__HERO_PRODUCT_DATA__",
+        f"data:image/webp;base64,{product_base64}",
     )
 
     if "__HERO_BACKGROUND_DATA__" in css_source:
         raise RuntimeError("Hero background placeholder was not replaced")
-    if "assets/hero/hero-product-reeds.webp" in script_source:
-        raise RuntimeError("Hero product path was not embedded")
+    if "__HERO_PRODUCT_DATA__" in script_source:
+        raise RuntimeError("Hero product placeholder was not replaced")
 
     safe_css = css_source.replace("</style", "<\\/style")
     safe_script = script_source.replace("</script", "<\\/script")
@@ -103,6 +103,8 @@ def build() -> None:
         raise RuntimeError("Legacy runtime assets are still referenced")
     if "loader.js" in page or "loader.css" in page:
         raise RuntimeError("Runtime loader must not be present in the built page")
+    if "__HERO_BACKGROUND_DATA__" in page or "__HERO_PRODUCT_DATA__" in page:
+        raise RuntimeError("Hero assets are not fully embedded")
     if page.count("<html") != 1 or page.count("</html>") != 1:
         raise RuntimeError("Built page does not contain exactly one HTML document")
     if 'id="inicio"' not in page or 'id="contato"' not in page:
