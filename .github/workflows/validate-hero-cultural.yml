@@ -3,7 +3,7 @@ name: Validate cultural hero
 on:
   push:
     branches:
-      - feat-hero-real-motion
+      - fix-final-hero-image
   pull_request:
     branches:
       - main
@@ -16,20 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate final cultural hero
+      - name: Validate final hero image
         run: |
+          test -f assets/hero/hero-la-musica-scene.webp
+          test -s assets/hero/hero-la-musica-scene.webp
+          test -f src/styles/15.css
+          grep -q "hero-la-musica-scene.webp" src/styles/15.css
+          grep -q "hero-real-scene-breathe" src/styles/15.css
+          grep -q "'14', '15'" loader.js
           test -f src/scripts/06.js
-          test -f src/styles/13.css
-          test -f src/styles/14.css
           node --check src/scripts/06.js
-          grep -q "hero-cultural-bg" src/scripts/06.js
-          grep -q "hero-andes" src/scripts/06.js
-          grep -q "hero-sugarloaf" src/scripts/06.js
-          grep -q "hero-obelisk" src/scripts/06.js
-          grep -q "hero-copacabana" src/scripts/06.js
           grep -q "pointermove" src/scripts/06.js
-          grep -q "hero-product-float" src/styles/14.css
-          ! grep -q "hero-rhythm-label" src/scripts/06.js
-          ! grep -q "hero-bandoneon" src/scripts/06.js
-          ! grep -q "hero-sax-line" src/scripts/06.js
-          grep -q "'13', '14'" loader.js
