@@ -3,7 +3,7 @@ name: Validate cultural hero
 on:
   push:
     branches:
-      - fix-final-hero-image
+      - main
   pull_request:
     branches:
       - main
@@ -19,11 +19,16 @@ jobs:
       - name: Validate final hero image
         run: |
           test -f assets/hero/hero-la-musica-scene.webp
-          test -s assets/hero/hero-la-musica-scene.webp
           test -f src/styles/15.css
+          python - <<'PY'
+          from pathlib import Path
+          asset = Path('assets/hero/hero-la-musica-scene.webp').read_bytes()
+          assert len(asset) > 5000, 'Hero image is unexpectedly small'
+          assert asset[:4] == b'RIFF', 'Invalid WebP RIFF signature'
+          assert asset[8:12] == b'WEBP', 'Invalid WebP format signature'
+          PY
           grep -q "hero-la-musica-scene.webp" src/styles/15.css
           grep -q "hero-real-scene-breathe" src/styles/15.css
           grep -q "'14', '15'" loader.js
-          test -f src/scripts/06.js
           node --check src/scripts/06.js
           grep -q "pointermove" src/scripts/06.js
