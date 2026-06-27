@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Build the GitHub Pages artifact as one self-contained static page.
-
-The source remains organized in small HTML, CSS and JavaScript files, while the
-published artifact contains the approved background and the replaceable product
-embedded directly in one index.html. This avoids runtime asset failures and
-cache conflicts regardless of how GitHub Pages is configured.
-"""
+"""Build the GitHub Pages artifact as one self-contained static page."""
 
 from __future__ import annotations
 
@@ -21,6 +15,7 @@ OUT = ROOT / "_site"
 HTML_PARTS = [ROOT / "src" / "index" / f"{part}.html" for part in ("00", "01", "02", "03", "04")]
 CSS_PARTS = [ROOT / "src" / "styles" / f"{part:02d}.css" for part in range(16)]
 CSS_PARTS.append(ROOT / "src" / "styles" / "final.css")
+CSS_PARTS.append(ROOT / "src" / "styles" / "quality.css")
 SCRIPT_PARTS = [ROOT / "src" / "scripts" / name for name in ("00.js", "01.js", "02.js", "04.js", "08.js")]
 
 
@@ -65,8 +60,8 @@ def build() -> None:
     if "__HERO_PRODUCT_DATA__" in script_source:
         raise RuntimeError("Hero product placeholder was not replaced")
 
-    safe_css = css_source.replace("</style", "<\\/style")
-    safe_script = script_source.replace("</script", "<\\/script")
+    safe_css = css_source.replace("</style", "<\/style")
+    safe_script = script_source.replace("</script", "<\/script")
 
     style_hash = sha256_source(safe_css)
     script_hash = sha256_source(safe_script)
