@@ -1,6 +1,6 @@
-/* Refino final do hero: usa o WebP enviado como asset real e fica depois do final.css. */
+/* Refino final do hero: usa o WebP enviado manualmente em assets/hero e fica depois do final.css. */
 .hero.hero::after {
-  background-image: url("assets/hero/la-musica-hero-background-q95.webp") !important;
+  background-image: url("assets/hero/la_musica_hero_background_3840x2160_q95.webp") !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center center !important;
