@@ -12,6 +12,28 @@ O deploy acontece automaticamente a cada atualização da branch `main` pelo wor
 
 Em **Settings → Pages → Build and deployment**, a fonte deve estar definida como **GitHub Actions**. Não crie um segundo workflow pelo catálogo de modelos, porque o projeto já possui o workflow oficial de publicação.
 
+## Estratégia de branches
+
+O repositório deve trabalhar com no máximo três branches permanentes:
+
+- `DEV`: desenvolvimento e ajustes em andamento;
+- `HML`: homologação/validação antes da publicação;
+- `main`: produção, branch oficial do GitHub Pages.
+
+Fluxo recomendado:
+
+```text
+DEV → HML → main
+```
+
+Regras de uso:
+
+- não criar novas branches permanentes para cada correção visual;
+- correções pequenas devem entrar em `DEV` e seguir para `HML` por pull request;
+- somente conteúdo validado em `HML` deve ser promovido para `main`;
+- branches antigas de PR já mergeado devem ser excluídas pela tela **Branches** do GitHub para manter o repositório limpo;
+- `main` representa PRD/produção e deve refletir exatamente o que será publicado no Pages.
+
 ## Estrutura canônica
 
 O código-fonte permanece organizado em módulos, mas o build publica uma única página estática em `_site/index.html`. O background aprovado e a caixa de palhetas são incorporados diretamente nessa página para evitar falhas de caminho e cache.
