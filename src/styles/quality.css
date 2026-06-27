@@ -1,0 +1,41 @@
+/* Refino de qualidade do hero aprovado.
+ * Mantém a imagem enviada como base e a caixa como elemento separado,
+ * mas remove suavizações que deixavam o background com aparência borrada.
+ */
+.hero.hero::after {
+  background-size: cover !important;
+  background-position: center center !important;
+  filter: none !important;
+  image-rendering: auto !important;
+  backface-visibility: hidden !important;
+  transform: translate3d(var(--hero-scene-x, 0px), var(--hero-scene-y, 0px), 0) scale(1) !important;
+  animation: none !important;
+}
+
+.hero.hero::before {
+  background:
+    linear-gradient(90deg, rgba(2, 15, 26, .66) 0%, rgba(2, 15, 26, .40) 34%, rgba(2, 15, 26, .13) 58%, transparent 78%),
+    linear-gradient(180deg, rgba(2, 15, 26, .12) 0%, transparent 54%, rgba(2, 15, 26, .18) 100%) !important;
+}
+
+.hero .hero-product-image {
+  image-rendering: auto !important;
+  filter: drop-shadow(0 34px 34px rgba(0, 0, 0, .50)) !important;
+}
+
+@media (max-width: 780px) {
+  .hero.hero::after {
+    background-size: cover !important;
+    background-position: 70% center !important;
+    transform: none !important;
+    opacity: .88 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.hero::after,
+  .hero .hero-product-image {
+    animation: none !important;
+    transition: none !important;
+  }
+}
