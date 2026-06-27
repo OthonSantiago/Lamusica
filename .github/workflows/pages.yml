@@ -39,26 +39,27 @@ jobs:
           python3 -m py_compile tools/build_pages.py
           python3 tools/build_pages.py
           mkdir -p _site/assets/hero
-          cp assets/hero/la-musica-hero-background-q95.webp _site/assets/hero/la-musica-hero-background-q95.webp
+          cp assets/hero/la_musica_hero_background_3840x2160_q95.webp _site/assets/hero/la_musica_hero_background_3840x2160_q95.webp
 
       - name: Validate publication artifact
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
+          hero_asset = 'assets/hero/la_musica_hero_background_3840x2160_q95.webp'
           page_path = Path('_site/index.html')
           assert page_path.is_file(), 'index.html não foi gerado'
           page = page_path.read_text(encoding='utf-8')
 
           assert Path('_site/.nojekyll').is_file(), '.nojekyll ausente'
           assert Path('_site/assets/maps/brazil-states.svg').is_file(), 'mapa ausente'
-          assert Path('_site/assets/hero/la-musica-hero-background-q95.webp').is_file(), 'hero q95 ausente'
+          assert Path('_site/' + hero_asset).is_file(), 'hero q95 ausente'
           assert 'id="inicio"' in page, 'seção inicial ausente'
           assert 'id="contato"' in page, 'seção de contato ausente'
           assert '__HERO_BACKGROUND_DATA__' not in page, 'placeholder do background não substituído'
           assert '__HERO_PRODUCT_DATA__' not in page, 'placeholder do produto não substituído'
           assert page.count('data:image/webp;base64,') >= 1, 'produto não incorporado'
-          assert 'assets/hero/la-musica-hero-background-q95.webp' in page, 'hero q95 não referenciado'
+          assert hero_asset in page, 'hero q95 não referenciado'
           assert 'loader.js' not in page and 'loader.css' not in page, 'loader legado ainda presente'
           assert 'src="script.js"' not in page and 'href="styles.css"' not in page, 'assets legados ainda presentes'
 
