@@ -1,11 +1,11 @@
-/* Hero final: usa a arte 16:9 enviada em WebP q95 como asset real e mantém a caixa de palhetas como elemento independente. */
+/* Hero background layer. Legacy marker: hero-la-musica-scene-v4.webp. */
 .hero.hero::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
   z-index: 0 !important;
   pointer-events: none !important;
-  background-image: url("assets/hero/la-musica-hero-background-q95.webp") !important;
+  background-image: url("assets/hero/la_musica_hero_background_3840x2160_q95.webp") !important;
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important;
@@ -32,6 +32,10 @@
   width: clamp(270px, 17.2vw, 305px) !important;
   image-rendering: auto !important;
   filter: drop-shadow(0 34px 34px rgba(0, 0, 0, .50)) !important;
+}
+
+@keyframes hero-real-scene-breathe {
+  to { transform: translate3d(var(--hero-scene-x, 0px), var(--hero-scene-y, 0px), 0) scale(1.006); }
 }
 
 @media (max-width: 780px) {
