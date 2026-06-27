@@ -1,12 +1,14 @@
 (() => {
   'use strict';
 
-  const BUILD_VERSION = '20260625-static2';
+  const BUILD_VERSION = '20260627-static3';
   const status = document.querySelector('[data-loader-status]');
   const indexParts = ['00', '01', '02', '03', '04'].map((part) => `src/index/${part}.html`);
+  const stylePartNames = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15'];
   const styleParts = [
-    ...Array.from({ length: 16 }, (_, index) => `src/styles/${String(index).padStart(2, '0')}.css`),
-    'src/styles/final.css'
+    ...stylePartNames.map((part) => `src/styles/${part}.css`),
+    'src/styles/final.css',
+    'src/styles/quality.css'
   ];
   const scriptParts = ['00', '01', '02', '04', '08'].map((part) => `src/scripts/${part}.js`);
 
